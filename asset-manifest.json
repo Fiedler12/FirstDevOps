@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/FirstDevOps/static/css/main.34fd26a2.css",
-    "main.js": "/FirstDevOps/static/js/main.268585b1.js",
+    "main.js": "/FirstDevOps/static/js/main.4843331c.js",
     "static/js/787.d1d4a2c2.chunk.js": "/FirstDevOps/static/js/787.d1d4a2c2.chunk.js",
     "static/media/cropped-Final-Logo-2.png": "/FirstDevOps/static/media/cropped-Final-Logo-2.9dee454dccd253b10953.png",
     "static/media/roboto-all-500-normal.woff": "/FirstDevOps/static/media/roboto-all-500-normal.0ab669b7a0d19b178f57.woff",
@@ -38,11 +38,11 @@
     "static/media/roboto-greek-ext-700-normal.woff2": "/FirstDevOps/static/media/roboto-greek-ext-700-normal.bd9854c751441ccc1a70.woff2",
     "index.html": "/FirstDevOps/index.html",
     "main.34fd26a2.css.map": "/FirstDevOps/static/css/main.34fd26a2.css.map",
-    "main.268585b1.js.map": "/FirstDevOps/static/js/main.268585b1.js.map",
+    "main.4843331c.js.map": "/FirstDevOps/static/js/main.4843331c.js.map",
     "787.d1d4a2c2.chunk.js.map": "/FirstDevOps/static/js/787.d1d4a2c2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.34fd26a2.css",
-    "static/js/main.268585b1.js"
+    "static/js/main.4843331c.js"
   ]
 }
