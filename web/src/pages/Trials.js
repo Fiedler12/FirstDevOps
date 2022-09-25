@@ -1,4 +1,5 @@
-import {Button, Card, CardActions, Grid, Typography} from "@mui/material";
+import {Button, Card, CardActions, Fab, Grid, Typography} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 
 const trials = [
     {
@@ -36,7 +37,12 @@ const trials = [
 function Trials() {
     return(
         <div>
-            <h1>Trials</h1>
+            <h1>Trials
+                <Fab href={"#/createTrials"} color="primary" aria-label="add" size="small">
+                    <AddIcon/>
+                </Fab>
+            </h1>
+
             <Grid container
                   maxWidth="lg"
                   spacing={4}
