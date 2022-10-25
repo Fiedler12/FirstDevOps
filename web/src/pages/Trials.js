@@ -42,8 +42,8 @@ function Trials() {
                     <AddIcon/>
                 </Fab>
             </h1>
-
-            <Grid container
+            <Container>
+                <Grid container
                   maxWidth="lg"
                   spacing={4}
                   alignItems="center"
@@ -68,7 +68,8 @@ function Trials() {
                             </Card>
                     </Grid>
                 ))}
-            </Grid>
+                </Grid>
+            </Container>
         </div>
     )
 
