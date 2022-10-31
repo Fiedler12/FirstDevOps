@@ -1,3 +1,4 @@
+import service.HibernateController;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
