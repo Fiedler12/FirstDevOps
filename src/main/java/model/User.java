@@ -19,8 +19,11 @@ public class User {
     private int id;
     @Column(name = "navn")
     private String username;
+    @Column(name = "disease")
+    private int disease;
     @Column @Transient
     private String password;
     @Column @JsonIgnore
     private String hash;
+
 }

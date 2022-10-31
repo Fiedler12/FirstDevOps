@@ -3,16 +3,15 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
-@Table(name = "trial")
+@Table(name = "disease")//WATCH out  USER is a reserved name!
 @Getter
 @Setter
 @Builder
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Trial {
+public class Disease {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -20,8 +19,4 @@ public class Trial {
 
     @Column(name = "name")
     private String name;
-
-    @Column(name = "disease")
-    private String disease;
-
 }
