@@ -63,7 +63,7 @@ function Trials() {
                                     {trial.Trial}
                                 </Typography>
                                 <CardActions>
-                                    <Button size="small">Learn More</Button>
+                                    <Button size="small" href={"#/trialSignup"}>Learn More</Button>
                                 </CardActions>
                             </Card>
                     </Grid>

@@ -10,8 +10,9 @@ import logo from './Logo/cropped-Final-Logo-2.png';
 import {AppBar, Button, Toolbar} from "@mui/material";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
-import TrialSignup from "./pages/TrialSignup";
 import CreateTrial from "./pages/CreateTrial";
+import TrialSignup from "./pages/TrialSignup";
+
 
 function App() {
   return (
