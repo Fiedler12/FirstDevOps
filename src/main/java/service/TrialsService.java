@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
-@Path("gettrials")
+@Path("trials")
 public class TrialsService {
     //TODO: replace with real database
 
@@ -32,9 +32,8 @@ public class TrialsService {
 
 
     @GET
-    public String getTrials(){
-        return trial.toString();
-
+    public Trial getTrials(){
+        return trial;
     }
 
 }
