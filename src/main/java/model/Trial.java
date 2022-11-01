@@ -3,12 +3,10 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
 @Table(name = "trial")
 @Getter
 @Setter
-@Builder
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
@@ -18,10 +16,16 @@ public class Trial {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "company")
+    private String company;
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "disease")
-    private String disease;
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "description")
+    private String description;
 
 }
