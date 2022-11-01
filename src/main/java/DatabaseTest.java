@@ -6,7 +6,7 @@ import org.hibernate.Transaction;
 public class DatabaseTest {
     public static void main(String[] args) {
 
-        HibernateController hibernateController = new HibernateController("probe.diplomportal.dk:5432/devops");
+        controller.HibernateController hibernateController = controller.HibernateController.getInstance();
 
         SessionFactory sessionFactory = hibernateController.getSessionFactory();
         Session session = sessionFactory.openSession();

@@ -1,12 +1,16 @@
+package controller;
+
 import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 
 public class HibernateController {//Should be a singleton…
-    private final SessionFactory sessionFactory;
+    private static HibernateController instance = null;
+    private static SessionFactory sessionFactory;
+    private String dbUrl = "probe.diplomportal.dk:5432/devops";
 
-    public HibernateController(String dbUrl){
+    private HibernateController(){
         Configuration configuration = new Configuration(); //NB org.hibernate.cfg.Configuration
         configuration.addAnnotatedClass(User.class); //remember to do this for all DB entities
         configuration.setProperty("hibernate.connection.username", System.getenv("devopse22user"));
@@ -17,7 +21,13 @@ public class HibernateController {//Should be a singleton…
         this.sessionFactory = configuration.buildSessionFactory();
     }
 
-    public SessionFactory getSessionFactory() {
+    public static HibernateController getInstance(){
+        if (instance == null){
+            instance = new HibernateController();
+        }
+        return instance;
+    }
+    public synchronized static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }

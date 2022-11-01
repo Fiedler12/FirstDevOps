@@ -5,6 +5,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import model.Trial;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +18,10 @@ import java.util.List;
 @Path("trials")
 public class TrialsService {
     //TODO: replace with real database
+    controller.HibernateController hibernateController = controller.HibernateController.getInstance();
 
-    Trial trial = new Trial(1, "Novo Nordisk", "Trial 1", "Copenhagen", "This is a trial");
+
+    //Trial trial = new Trial(1, "Novo Nordisk", "Trial 1", "Copenhagen", "This is a trial");
 
     //private int id = 0;
     //private String company = "Novo Nordisk";
@@ -33,6 +40,13 @@ public class TrialsService {
 
     @GET
     public Trial getTrials(){
+        Session session = hibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        // get the trial from the database with hibernate
+        Trial trial = session.get(Trial.class, 1);
+        System.out.println(trial);
+        transaction.commit();
+        session.close();
         return trial;
     }
 
