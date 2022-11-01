@@ -6,7 +6,7 @@ CREATE TABLE users(
     id int NOT NULL ,
     Name varchar(255) NOT NULL ,
     Email varchar(255),
-    cpr Integer,
+    cpr INTEGER,
     PRIMARY KEY (id)
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE companies(
 
 CREATE TABLE trials(
     id int NOT NULL ,
-    CompanyID integer NOT NULL,
+    CompanyID int NOT NULL,
     TrialName varchar(255) NOT NULL ,
     PRIMARY KEY (id),
     FOREIGN KEY (CompanyID) REFERENCES companies
