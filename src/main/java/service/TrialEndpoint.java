@@ -15,7 +15,7 @@ package service;
         import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
-@Path("trials")
+@Path("newEndpoint")
 public class TrialEndpoint {
 
     private static final SessionFactory sessionFactory = new HibernateController("probe.diplomportal.dk:5432/devops").getSessionFactory();
