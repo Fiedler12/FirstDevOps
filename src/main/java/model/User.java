@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "DBUSER")//WATCH out  USER is a reserved name!
+@Table(name = "USERS")//WATCH out  USER is a reserved name!
 @Getter
 @Setter
 @Builder
@@ -17,13 +17,12 @@ public class User {
     @GeneratedValue
     @Column(name = "id")
     private int id;
-    @Column(name = "navn")
-    private String username;
-    @Column(name = "disease")
-    private int disease;
-    @Column @Transient
+    @Column(name = "name")
+    private String name;
+    @Column(name = "email")
     private String password;
+    @Column(name = "cpr")
+    private String cpr;
     @Column @JsonIgnore
     private String hash;
-
 }
