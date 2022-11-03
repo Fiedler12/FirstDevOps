@@ -21,8 +21,8 @@ function Trials() {
                   direction="row"
                   >
                 {trialsStore.trials.map(trial => (
-                    <Grid item xs={4} sm={6} md={4} lg={4}>
-                            <Card sx={6} key={trial.id}>
+                    <Grid item xs={4} sm={6} md={4} lg={4} key={trial.id}>
+                            <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                     {trial.company}
                                 </Typography>
