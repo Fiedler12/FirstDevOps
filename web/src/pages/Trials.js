@@ -29,7 +29,7 @@ function Trials() {
                                 <Typography variant="h5" component="div">
                                     {trial.trialname}
                                 </Typography>
-                                <Typography variant="h7" component="div">
+                                <Typography variant="h6" component="div">
                                     {trial.location}
                                 </Typography>
                                 <Typography variant="body2">
