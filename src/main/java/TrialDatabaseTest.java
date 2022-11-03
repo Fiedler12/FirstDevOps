@@ -1,3 +1,4 @@
+import controller.HibernateController;
 import model.Trial;
 import model.Trialtest;
 import model.User;
@@ -12,7 +13,7 @@ public class TrialDatabaseTest {
 
         controller.HibernateController hibernateController = controller.HibernateController.getInstance();
 
-        SessionFactory sessionFactory = hibernateController.getSessionFactory();
+        SessionFactory sessionFactory = HibernateController.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Trial trial = new Trial();

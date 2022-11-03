@@ -24,9 +24,6 @@ public class Trial{
 //    @Column(name = "company")
 //    private String company;
 //
-//    @Column(name = "name")
-//    private String name;
-//
 //    @Column(name = "location")
 //    private String location;
 //

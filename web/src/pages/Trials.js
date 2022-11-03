@@ -1,17 +1,8 @@
 import {Button, Card, CardActions, Fab, Grid, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import{trialsStore} from "../stores/TrialsStore";
+import {observer} from "mobx-react-lite";
 
-const trialtest = ({id, companyid, trialname}) => {
-return (
-        <div>
-            <h1>Trial number {id}</h1>
-            <h2>{companyid}</h2>
-            <h2>{trialname}</h2>
-        </div>
-    );
-
-}
 
 function Trials() {
     return(
@@ -21,20 +12,6 @@ function Trials() {
                     <AddIcon/>
                 </Fab>
             </h1>
-            <div>
-                {console.log("Hello")}
-                {console.log(trialsStore.trials.entries())}
-            </div>
-            <div>
-                {trialsStore.trials.map((trialtest) => (
-                    <p>
-                        <span>ID: {trialtest.id}</span>
-                        <span> Name: {trialtest.trials.entries()}</span>
-                    </p>
-
-
-                ))}
-            </div>
 
             <Grid container
                   maxWidth="lg"
@@ -45,15 +22,15 @@ function Trials() {
                   >
                 {trialsStore.trials.map(trial => (
                     <Grid item xs={4} sm={6} md={4} lg={4}>
-                            <Card sx={6} >
+                            <Card sx={6}>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {trial.name}
+                                    {trial.trialname}
                                 </Typography>
                                 <Typography variant="h5" component="div">
-                                    {trial.company}
+                                    {trial.companyid}
                                 </Typography>
                                 <Typography variant="body2">
-                                    {trial.description}
+                                    {trial.trialname}
                                 </Typography>
                                 <CardActions>
                                     <Button size="small" href={"#/trialSignup"}>Learn More</Button>
@@ -67,4 +44,4 @@ function Trials() {
 
 }
 
-export default Trials;
+export default observer(Trials);

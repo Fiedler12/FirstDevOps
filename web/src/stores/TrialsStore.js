@@ -1,10 +1,14 @@
-import {makeAutoObservable, runInAction} from "mobx";
+import {action, makeAutoObservable, runInAction} from "mobx";
 
 const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080/":""; //Check if dev environment
 
 
 class TrialsStore {
-    trials = [];
+    trials = [{
+        "id": 1,
+        "companyid": 1,
+        "trialname": "test"
+    }];
 
     constructor(props) {
         makeAutoObservable(this,{},{autoBind:true});
@@ -14,8 +18,8 @@ class TrialsStore {
     async fetchTrials (){
         const response = await fetch(baseUrl + "api/trials")
         const json = await response.json()
-        console.log(json)
-        this.trials.push(json)
+        console.log(json);
+        runInAction(() => this.trials = json);
 
     }
 }
