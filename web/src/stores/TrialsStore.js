@@ -7,7 +7,10 @@ class TrialsStore {
     trials = [{
         "id": 1,
         "companyid": 1,
-        "trialname": "test"
+        "trialname": "trialname",
+        "company": "companyname",
+        "location": "location",
+        "description": "description"
     }];
 
     constructor(props) {

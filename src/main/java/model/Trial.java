@@ -21,13 +21,13 @@ public class Trial{
     @Column(name = "trialname")
     private String trialname;
 
-//    @Column(name = "company")
-//    private String company;
-//
-//    @Column(name = "location")
-//    private String location;
-//
-//    @Column(name = "description")
-//    private String description;
+    @Column(name = "company")
+    private String company;
+
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "description")
+    private String description;
 
 }

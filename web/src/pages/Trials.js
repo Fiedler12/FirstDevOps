@@ -24,13 +24,16 @@ function Trials() {
                     <Grid item xs={4} sm={6} md={4} lg={4}>
                             <Card sx={6}>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {trial.trialname}
+                                    {trial.company}
                                 </Typography>
                                 <Typography variant="h5" component="div">
-                                    {trial.companyid}
+                                    {trial.trialname}
+                                </Typography>
+                                <Typography variant="h7" component="div">
+                                    {trial.location}
                                 </Typography>
                                 <Typography variant="body2">
-                                    {trial.trialname}
+                                    {trial.description}
                                 </Typography>
                                 <CardActions>
                                     <Button size="small" href={"#/trialSignup"}>Learn More</Button>
