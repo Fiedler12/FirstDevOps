@@ -15,7 +15,7 @@ public class Trial{
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private float id;
+    private int id;
     @Column(name = "companyid")
     private int companyid;
     @Column(name = "trialname")
