@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class DatabaseTest {
+public class TrialDatabaseTest {
     public static void main(String[] args) {
 
         controller.HibernateController hibernateController = controller.HibernateController.getInstance();
@@ -15,21 +15,21 @@ public class DatabaseTest {
         SessionFactory sessionFactory = hibernateController.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        User user = new User();
-        System.out.println("UserID before commit: " + user.getId());
-        user.setName("Hans Christian");
-        session.persist(user);
+        Trial trial = new Trial();
+        System.out.println("UserID before commit: " + trial.getId());
+        trial.setTrialname("Novo Nordisk");
+       // session.persist(trial);
 
         transaction.commit();
-        System.out.println("UserID after commit: " + user.getId());
-        Transaction readTransaction = session.beginTransaction();
-        User readUser = session.get(User.class, user.getId());
-        System.out.println("Read user back: " + readUser.toString());
+        System.out.println("UserID after commit: " + trial.getId());
+        //Transaction readTransaction = session.beginTransaction();
+        //Trial readTrial = session.get(Trial.class, trial.getId());
+        //System.out.println("Read user back: " + readTrial.toString());
         List<User> users = session.createQuery("FROM User", User.class).list();
         System.out.println("Users in database: " + users.toString());
-        List<Trialtest> trials = session.createQuery("FROM Trialtest", Trialtest.class).list();
-        System.out.println("Trials in database: " + trials.toString());
-        readTransaction.commit();
+        //List<Trial> trials = session.createQuery("FROM Trial", Trial.class).list();
+       // System.out.println("Trials in database: " + trials.toString());
+       // readTransaction.commit();
         session.close();
 
     }

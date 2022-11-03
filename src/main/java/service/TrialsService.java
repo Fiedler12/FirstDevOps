@@ -39,15 +39,16 @@ public class TrialsService {
 
 
     @GET
-    public Trial getTrials(){
+    public List<Trial> getTrials(){
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
+
         // get the trial from the database with hibernate
-        Trial trial = session.get(Trial.class, 1);
-        System.out.println(trial);
+        List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
+        System.out.println(trials);
         transaction.commit();
         session.close();
-        return trial;
+        return trials;
     }
 
 }
