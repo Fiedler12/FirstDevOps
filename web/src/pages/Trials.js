@@ -2,6 +2,17 @@ import {Button, Card, CardActions, Fab, Grid, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import{trialsStore} from "../stores/TrialsStore";
 
+const trialtest = ({id, companyid, trialname}) => {
+return (
+        <div>
+            <h1>Trial number {id}</h1>
+            <h2>{companyid}</h2>
+            <h2>{trialname}</h2>
+        </div>
+    );
+
+}
+
 function Trials() {
     return(
         <div>
@@ -10,6 +21,20 @@ function Trials() {
                     <AddIcon/>
                 </Fab>
             </h1>
+            <div>
+                {console.log("Hello")}
+                {console.log(trialsStore.trials.entries())}
+            </div>
+            <div>
+                {trialsStore.trials.map((trialtest) => (
+                    <p>
+                        <span>ID: {trialtest.id}</span>
+                        <span> Name: {trialtest.trials.entries()}</span>
+                    </p>
+
+
+                ))}
+            </div>
 
             <Grid container
                   maxWidth="lg"

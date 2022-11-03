@@ -2,8 +2,9 @@ import {makeAutoObservable, runInAction} from "mobx";
 
 const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080/":""; //Check if dev environment
 
+
 class TrialsStore {
-    trials = []
+    trials = [];
 
     constructor(props) {
         makeAutoObservable(this,{},{autoBind:true});
@@ -15,6 +16,7 @@ class TrialsStore {
         const json = await response.json()
         console.log(json)
         this.trials.push(json)
+
     }
 }
 
