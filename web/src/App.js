@@ -38,7 +38,7 @@ function App() {
     return (
     <AppBar position="static">
         <Toolbar>
-            <Button href={"/FirstDevOps/"}>
+            <Button href={"/"}>
                 <img
                     src={logo} alt={"Logo"}
                     height={50}
