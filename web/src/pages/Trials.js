@@ -22,7 +22,7 @@ function Trials() {
                   >
                 {trialsStore.trials.map(trial => (
                     <Grid item xs={4} sm={6} md={4} lg={4}>
-                            <Card sx={6}>
+                            <Card sx={6} key={trial.id}>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                     {trial.company}
                                 </Typography>
