@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Trial {
+public class Trial{
     @Id
     @GeneratedValue
     @Column(name = "id")

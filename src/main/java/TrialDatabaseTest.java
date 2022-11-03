@@ -25,7 +25,7 @@ public class TrialDatabaseTest {
         //Transaction readTransaction = session.beginTransaction();
         //Trial readTrial = session.get(Trial.class, trial.getId());
         //System.out.println("Read user back: " + readTrial.toString());
-        List<User> users = session.createQuery("FROM User", User.class).list();
+        List<Trial> users = session.createQuery("FROM Trial", Trial.class).list();
         System.out.println("Users in database: " + users.toString());
         //List<Trial> trials = session.createQuery("FROM Trial", Trial.class).list();
        // System.out.println("Trials in database: " + trials.toString());
