@@ -2,9 +2,19 @@ import {Button, Card, CardActions, Fab, Grid, Typography} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import{trialsStore} from "../stores/TrialsStore";
 import {observer} from "mobx-react-lite";
+import {useEffect, useState} from "react";
 
 
 function Trials() {
+    const [trials, setTrials] = useState([])
+
+    useEffect(() => {
+        async function getTrials() {
+            setTrials(await trialsStore.fetchTrials())
+        }
+        getTrials()
+    }, [])
+
     return(
         <div>
             <h1>Trials
@@ -20,7 +30,7 @@ function Trials() {
                   justifyContent="center"
                   direction="row"
                   >
-                {trialsStore.trials.map(trial => (
+                {trials.map(trial => (
                     <Grid item xs={4} sm={6} md={4} lg={4} key={trial.id}>
                             <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -47,4 +57,4 @@ function Trials() {
 
 }
 
-export default observer(Trials);
+export default Trials;
