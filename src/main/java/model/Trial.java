@@ -21,7 +21,8 @@ public class Trial{
     @Column(name = "trialname")
     private String trialname;
 
-    @Column(name = "company")
+    //from table companies
+    @Column(name = "cname")
     private String company;
 
     @Column(name = "location")
