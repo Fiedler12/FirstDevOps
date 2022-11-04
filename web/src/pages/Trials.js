@@ -36,7 +36,7 @@ function Trials() {
                                     {trial.description}
                                 </Typography>
                                 <CardActions>
-                                    <Button size="small" href={"#/trialSignup"}>Learn More</Button>
+                                    <Button size="small" href={`#/trialSignup/${trial.id}`}>Learn More</Button>
                                 </CardActions>
                             </Card>
                     </Grid>
