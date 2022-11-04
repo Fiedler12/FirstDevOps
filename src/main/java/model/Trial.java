@@ -1,6 +1,7 @@
 package model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -13,17 +14,18 @@ import lombok.*;
 @AllArgsConstructor
 public class Trial{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @Column(name = "companyid")
-    private int companyid;
+
+    @ManyToOne
+    @JoinColumn(name = "companyid")
+    private Company company;
+
     @Column(name = "trialname")
     private String trialname;
 
     //from table companies
-    @Column(name = "cname")
-    private String company;
 
     @Column(name = "location")
     private String location;

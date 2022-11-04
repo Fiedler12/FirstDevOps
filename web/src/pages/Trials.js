@@ -34,7 +34,7 @@ function Trials() {
                     <Grid item xs={4} sm={6} md={4} lg={4} key={trial.id}>
                             <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {trial.company}
+                                    {trial.company.cname}
                                 </Typography>
                                 <Typography variant="h5" component="div">
                                     {trial.trialname}
