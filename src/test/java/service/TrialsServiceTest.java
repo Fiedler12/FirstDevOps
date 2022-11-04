@@ -26,21 +26,21 @@ class TrialsServiceTest {
 
         // test the getTrial method with a valid id
         @org.junit.jupiter.api.Test
-        void getTrials1() {
+        void getTrial() {
             // create a new instance of the service
             TrialsService trialsService = new TrialsService();
             // call the getTrial method with a valid id
-            Trial trial = trialsService.getTrials(2000);
+            Trial trial = trialsService.getTrial(2000);
             // check that the trial is not null
             assertNotNull(trial);
             // call the getTrial method with an invalid id
-            Trial trial2 = trialsService.getTrials(1);
+            Trial trial2 = trialsService.getTrial(1);
             // check that the trial is null
             assertNull(trial2);
             // check that the trial has the expected name
             assertEquals("GoodSuckin", trial.getTrialname());
             // check that the trial has the expected company
-            // assertEquals("Novo Nordisk", trial.getCompany());
+             assertEquals("Novo Nordisk", trial.getCompany());
         }
 
 }

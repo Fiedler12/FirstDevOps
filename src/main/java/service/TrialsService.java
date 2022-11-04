@@ -32,7 +32,7 @@ public class TrialsService {
 
     @GET
     @Path("/{id}")
-    public Trial getTrials(@PathParam("id") int id){
+    public Trial getTrial(@PathParam("id") int id){
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
