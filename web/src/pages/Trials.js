@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 
 
+
 function Trials() {
     const [trials, setTrials] = useState([])
 

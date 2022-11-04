@@ -21,7 +21,7 @@ public class JWTHandler {
         try {
             String s = objectMapper.writer().writeValueAsString(user);
             return JWT.create()
-                    .withIssuer("GiraffeDeluxe")
+                    .withIssuer("Probe")
                     .withClaim("user", s)
                     .withExpiresAt(expiry.getTime())
                     .sign(Algorithm.HMAC512(key));

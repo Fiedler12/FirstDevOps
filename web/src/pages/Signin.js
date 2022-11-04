@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {tokenstore} from "../stores/TokenStore";
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-in
 
@@ -30,14 +31,21 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
 export default function Signin() {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        tokenstore.doLogin();
         console.log({
             email: data.get('email'),
             password: data.get('password'),
         });
+        console.log(tokenstore.state);
+        if (tokenstore.state === "LoggedIn") {
+            window.location.href = "/#/homepage";
+        }
+
     };
 
     return(
@@ -68,6 +76,7 @@ export default function Signin() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={(e)=>{tokenstore.logindata.email=e.target.value}}
                         />
                         <TextField
                             margin="normal"
@@ -78,6 +87,7 @@ export default function Signin() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={(e)=>{tokenstore.logindata.password=e.target.value}}
                         />
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
@@ -88,7 +98,7 @@ export default function Signin() {
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            href={"#/homepage"}
+                            //href={"#/homepage"}
                         >
                             Sign In
                         </Button>
