@@ -14,28 +14,36 @@ class TokenStore {
 
     }
 
-    doLogin() {
+    async doLogin() {
         this.state = Loginstates.LOGGING_IN;
-        fetch(baseUrl + "api/login", {
+
+        const response = await fetch(baseUrl + "api/login", {
             method: "POST",
+            body: JSON.stringify(this.logindata),
             headers: {
-                "Content-Type": "application/json",
-                Authentication: this.token
-            },
-            body: JSON.stringify(this.logindata)
-        }).then((response)=> {
-            response.text().then(
-                (token)=> {
-                    console.log("Got Token: " + token)
-                    this.token=token;
-                    localStorage.setItem("probeToken",token);
-                    this.state=Loginstates.LOGGED_IN;
-                    console.log("Got Token: " + this.token + " and state: " + this.state)}
+                "Content-Type": "application/json"
+            }
+        })
 
+        const token = await response.text()
+        try {
+            if (response.status === 200) {
+                this.token = token;
+                localStorage.setItem("probeToken", token);
+                this.state = Loginstates.LOGGED_IN;
+                console.log("Got Token: " + this.token + " and state: " + this.state)
+            } else {
+                this.state = Loginstates.LOGGEDOUT;
+                console.log("Got Token: " + this.token + " and state: " + this.state)
 
-            )}
-        ).catch(() => {this.state = Loginstates.LOGGEDOUT;
-                    console.log("Login failed")})
+            }
+            return this.state
+        }
+        catch (e) {
+            this.state = Loginstates.LOGGEDOUT;
+            console.log("Login failed")
+        }
+
     }
 
 

@@ -22,16 +22,21 @@ public class LoginService {
     {
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
+        LoginData logindata;
+        try {
+            User user = session.createQuery("from User where email = :email", User.class)
+                    .setParameter("email", login.getEmail())
+                    .uniqueResult();
+            System.out.println(user);
+            logindata = new LoginData();
+            logindata.setEmail(user.getEmail());
+            logindata.setPassword(user.getPassword());
+            System.out.println(logindata);
+        }catch (Exception e) {
+            throw new NotAuthorizedException("User not found");
+        }
 
-        User user = session.createQuery("from User where email = :email", User.class)
-                .setParameter("email", login.getEmail())
-                .uniqueResult();
-        System.out.println(user);
 
-        LoginData logindata = new LoginData();
-        logindata.setEmail(user.getEmail());
-        logindata.setPassword(user.getPassword());
-        System.out.println(logindata);
 
         if (login!=null && login.equals(logindata) ){
             return JWTHandler.generateJwtToken(new User(login.getEmail(), ""));
