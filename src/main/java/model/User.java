@@ -20,9 +20,16 @@ public class User {
     @Column(name = "name")
     private String name;
     @Column(name = "email")
+    private String email;
+    @Column(name = "password")
     private String password;
     @Column(name = "cpr")
     private String cpr;
     @Column @JsonIgnore
     private String hash;
+
+    public User(String email, String s) {
+        this.email = email;
+        this.password = s;
+    }
 }

@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {tokenstore} from "../stores/TokenStore";
+import {useEffect, useState} from "react";
+import login from "./Login";
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-in
 
@@ -30,20 +33,29 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+
+
 export default function Signin() {
-    const handleSubmit = (event) => {
+    const [state, setState] = useState('')
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        tokenstore.doLogin().then(() =>{
+            if (tokenstore.state === "LoggedIn") {
+                window.location.href = "/#/homepage";
+
+            }
+        })
+
     };
 
-    return(
+
+    return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
-                <CssBaseline />
+                <CssBaseline/>
                 <Box
                     sx={{
                         marginTop: 8,
@@ -52,13 +64,13 @@ export default function Signin() {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
+                    <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                        <LockOutlinedIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
                         <TextField
                             margin="normal"
                             required
@@ -68,6 +80,9 @@ export default function Signin() {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={(e) => {
+                                tokenstore.logindata.email = e.target.value
+                            }}
                         />
                         <TextField
                             margin="normal"
@@ -78,17 +93,20 @@ export default function Signin() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            onChange={(e) => {
+                                tokenstore.logindata.password = e.target.value
+                            }}
                         />
                         <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
+                            control={<Checkbox value="remember" color="primary"/>}
                             label="Remember me"
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                            href={"#/homepage"}
+                            sx={{mt: 3, mb: 2}}
+                            //href={"#/homepage"}
                         >
                             Sign In
                         </Button>
@@ -106,7 +124,7 @@ export default function Signin() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
+                <Copyright sx={{mt: 8, mb: 4}}/>
             </Container>
         </ThemeProvider>
 
