@@ -8,12 +8,16 @@ import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/mate
 
 function Trials() {
     const [trials, setTrials] = useState([])
-
     const [disease, setDisease] = useState('');
+    const [search, setSearch] = useState('');
 
     const handleChange = (event) => {
         setDisease(event.target.value);
     };
+
+    function apply() {
+
+    }
 
     useEffect(() => {
         async function getTrials() {
@@ -41,7 +45,9 @@ function Trials() {
                         <Box sx={{ my: 3, mx: 2 }}>
                             <Grid container alignItems="center">
                                 <Grid item xs>
-                                    <TextField>
+                                    <TextField onChange={(text) => {
+                                        setSearch(text.target.value)
+                                    }}>
                                         Search
                                     </TextField>
                                 </Grid>
@@ -75,7 +81,7 @@ function Trials() {
                             </FormControl>
                         </Box>
                         <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-                            <Button>Apply</Button>
+                            <Button onClick={apply()}>Apply</Button>
                         </Box>
                     </Box>
                 </Grid>
