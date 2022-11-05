@@ -24,7 +24,7 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "cpr")
-    private String cpr;
+    private int cpr;
     @Column @JsonIgnore
     private String hash;
 
