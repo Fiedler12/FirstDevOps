@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
+import {useEffect, useState} from "react";
+import {settingsStore} from "../stores/SettingsStore";
 
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-up
@@ -19,6 +21,20 @@ import Switch from '@mui/material/Switch';
 const theme = createTheme();
 
 export default function Settings() {
+
+    const [settings, setSettings] = useState([]);
+
+    const store = new settingsStore();
+
+    useEffect(() => {
+      async function getSettings() {
+        setSettings(await store.fetchSettings())
+
+      }
+      getSettings()
+        console.log(settings)
+    })
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
