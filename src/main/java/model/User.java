@@ -28,7 +28,8 @@ public class User {
     @Column @JsonIgnore
     private String hash;
 
-    public User(String email, String s) {
+    public User(int id, String email, String s) {
+        this.id = id;
         this.email = email;
         this.password = s;
     }

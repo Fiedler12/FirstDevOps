@@ -23,11 +23,10 @@ public class LoginService {
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         LoginData logindata;
+        User user;
         try {
-            User user = new User();
             user = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", login.getEmail())
-                    .setParameter("id", user.getId())
                     .uniqueResult();
             System.out.println(user);
             logindata = new LoginData();
@@ -35,14 +34,20 @@ public class LoginService {
             logindata.setPassword(user.getPassword());
             System.out.println(logindata);
         }catch (Exception e) {
+            transaction.commit();
+            session.close();
             throw new NotAuthorizedException("User not found");
         }
 
 
 
         if (login!=null && login.equals(logindata) ){
-            return JWTHandler.generateJwtToken(new User(login.getEmail(), ""));
+            transaction.commit();
+            session.close();
+            return JWTHandler.generateJwtToken(new User(user.getId(), login.getEmail(), ""));
         }
+        transaction.commit();
+        session.close();
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
     }
     @POST
