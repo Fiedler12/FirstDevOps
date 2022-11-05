@@ -40,6 +40,7 @@ export class SettingsStore {
     async updateSettings (settings){
         const token = tokenstore.token;
         this.state = states.LOADING;
+
         try {
             const user = JSON.parse(atob(token.split('.')[1])).user
             const userid = JSON.parse(user).id
@@ -47,7 +48,7 @@ export class SettingsStore {
             const response = await fetch(baseUrl + 'api/users/' + userid, {
                 method: 'PUT',
                 headers: {
-                    Authorization: "Bearer " + token,
+                    Authorization: token,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(settings)

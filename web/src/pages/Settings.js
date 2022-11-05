@@ -12,6 +12,8 @@ import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
 import {useEffect, useState} from "react";
 import {SettingsStore} from "../stores/SettingsStore";
+import Button from "@mui/material/Button";
+import {tokenstore} from "../stores/TokenStore";
 
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-up
@@ -34,14 +36,18 @@ export default function Settings() {
       getSettings()
     }, [])
 
-    const handleSubmit = (event) => {
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     const data = new FormData(event.currentTarget);
+    //     console.log({
+    //         email: data.get('email'),
+    //         password: data.get('password'),
+    //         switch: data.get('switch')
+    //     });
+    // };
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-            switch: data.get('switch')
-        });
+        await store.updateSettings(settings)
     };
 
     return (
@@ -72,8 +78,12 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.name}
+                                    // set name to value
+                                    onChange={(e)=> {
+                                        setSettings.name = e.target.value
+                                    }}
 
-                                    disabled
+
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -81,8 +91,10 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.lastname}
+                                    onChange={(e)=> {
+                                        setSettings.lastname = e.target.value
+                                    }}
 
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -95,8 +107,10 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.email}
+                                    onChange={(e)=> {
+                                        setSettings.email = e.target.value
+                                    }}
 
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -109,8 +123,10 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.cpr}
+                                    onChange={(e)=> {
+                                        setSettings.cpr = e.target.value
+                                    }}
 
-                                    disabled
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -125,7 +141,7 @@ export default function Settings() {
 
                                     label="Ringorm, fodvorter, festryger"
 
-                                    disabled
+
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -140,7 +156,7 @@ export default function Settings() {
 
                                     label="A Rhesus positiv"
 
-                                    disabled
+
                                 />
                             </Grid>
 
@@ -149,6 +165,14 @@ export default function Settings() {
                                 <FormControlLabel control={<Switch />} label="Editable"
                                 id = "switch"/>
                                 </FormGroup>
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{mt: 3, mb: 2}}
+                                >
+                                    Submit
+                                </Button>
                             </Grid>
                         </Grid>
                     </Box>
