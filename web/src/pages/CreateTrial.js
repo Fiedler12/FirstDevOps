@@ -10,10 +10,19 @@ import Checkbox from '@mui/material/Checkbox';
 import {Button, Fab, Stack} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
+import {useEffect, useState} from "react";
+import {trialsCreate} from "../stores/TrialCreationStore";
 
 function CreateTrial()
 {
     const [checked, setChecked] = React.useState([0]);
+    const [trialName, setTrialName] = useState("");
+    const [companyName, setCompanyName] = useState("");
+
+    function handleSubmit(e) {
+        console.log("Clicked")
+    }
+
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -27,6 +36,7 @@ function CreateTrial()
 
         setChecked(newChecked);
     };
+
     return(
         <div>
             <h1>
@@ -38,15 +48,20 @@ function CreateTrial()
                             <TextField
                                 required
                                 id="outlined-required"
+                                value={trialName}
                                 label="Trial name"
                                 defaultValue=""
                             />
                             <TextField
                                 required
                                 id="outlined-required"
+                                value={companyName}
                                 label="Company or origination"
                                 defaultValue=""
                             />
+                            <Button onClick={handleSubmit}>
+                                Submit
+                            </Button>
                         </Grid>
                         <Grid item xs={10} md={5}>
                             <div>
@@ -101,10 +116,6 @@ function CreateTrial()
                         </Grid>
                     </Grid>
                 </div>
-
-            <div align={"center"}>
-                <Button variant="contained">Submit</Button>
-            </div>
 
         </div>
     )

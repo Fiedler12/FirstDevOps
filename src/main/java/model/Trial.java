@@ -25,8 +25,6 @@ public class Trial{
     @Column(name = "trialname")
     private String trialname;
 
-    //from table companies
-
     @Column(name = "location")
     private String location;
 

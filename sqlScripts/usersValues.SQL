@@ -3,82 +3,83 @@ DROP TABLE IF EXISTS trials;
 DROP TABLE IF EXISTS companies;
 
 CREATE TABLE users(
-    id int NOT NULL ,
+    id SERIAL PRIMARY KEY,
     Name varchar(255) NOT NULL ,
     Email varchar(255),
     cpr INTEGER,
-    PRIMARY KEY (id)
+    hash varchar(255),
+    password varchar(255)
 );
 
 CREATE TABLE companies(
-    id int NOT NULL ,
+    id SERIAL PRIMARY KEY,
     Email varchar(255) NOT NULL,
-    CName VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+    CompanyName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE trials(
-    id int NOT NULL ,
+    id SERIAL PRIMARY KEY,
     CompanyID int NOT NULL,
     TrialName varchar(255) NOT NULL ,
-    PRIMARY KEY (id),
     FOREIGN KEY (CompanyID) REFERENCES companies
 );
 
-INSERT INTO users(id, Name)
-VALUES (3001,'Rune');
-INSERT INTO users(id, Name)
-VALUES ( 3023,'Lars');
-INSERT INTO users(id, Name)
-VALUES (3002,'Jannik');
-INSERT INTO users(id, Name)
-VALUES (3012, 'Mogens' );
-INSERT INTO users(id, Name)
-VALUES (3015, 'Pernille');
-INSERT INTO users(id, Name)
-VALUES (3018, 'Lotte' );
-INSERT INTO users(id, Name)
-VALUES (3019, 'Caroline');
-INSERT INTO users(id, Name)
-VALUES (3020, 'Kenneth');
-INSERT INTO users(id, Name)
-VALUES (3050, 'Hanne');
-INSERT INTO users(id, Name)
-VALUES (3051, 'Venø');
-INSERT INTO users(id, Name)
-VALUES (3052, 'Christian');
-INSERT INTO users(id, Name)
-VALUES (3053, 'Hans');
-INSERT INTO users(id, Name)
-VALUES (3054, 'Bente');
-INSERT INTO users(id, Name)
-VALUES (3055, 'Funcker');
-INSERT INTO users(id, Name)
-VALUES (3056, 'Løbet');
-INSERT INTO users(id, Name)
-VALUES (3057, 'Tør');
-INSERT INTO users(id, Name)
-VALUES (3058, 'For');
-INSERT INTO users(id, Name)
-VALUES (3059, 'Navne');
-INSERT INTO users(id, Name)
-VALUES (3060, 'Otto');
-INSERT INTO users(id, Name)
-VALUES (3061, 'Niels');
-INSERT INTO users(id, Name)
-VALUES (3062, 'HundeHoved' );
-INSERT INTO users(id, Name)
-VALUES (3067, 'EasterEgg');
-INSERT INTO users(id, Name)
-VALUES (3068, 'HanneTo');
+INSERT INTO users(Name)
+VALUES ('Rune');
+INSERT INTO users(Name)
+VALUES ('Lars');
+INSERT INTO users(Name)
+VALUES ('Jannik');
+INSERT INTO users(Name)
+VALUES ('Mogens' );
+INSERT INTO users(Name)
+VALUES ('Pernille');
+INSERT INTO users(Name)
+VALUES ('Lotte' );
+INSERT INTO users(Name)
+VALUES ('Caroline');
+INSERT INTO users(Name)
+VALUES ('Kenneth');
+INSERT INTO users(Name)
+VALUES ('Hanne');
+INSERT INTO users(Name)
+VALUES ('Venø');
+INSERT INTO users(Name)
+VALUES ('Christian');
+INSERT INTO users(Name)
+VALUES ('Hans');
+INSERT INTO users(Name)
+VALUES ('Bente');
+INSERT INTO users(Name)
+VALUES ('Funcker');
+INSERT INTO users(Name)
+VALUES ('Løbet');
+INSERT INTO users(Name)
+VALUES ('Tør');
+INSERT INTO users(Name)
+VALUES ('For');
+INSERT INTO users(Name)
+VALUES ('Navne');
+INSERT INTO users(Name)
+VALUES ('Otto');
+INSERT INTO users(Name)
+VALUES ('Niels');
+INSERT INTO users(Name)
+VALUES ('HundeHoved' );
+INSERT INTO users(Name)
+VALUES ('EasterEgg');
+INSERT INTO users(Name)
+VALUES ('HanneTo');
+INSERT INTO users(Name, email,password)
+VALUES ('Rune', 'rune@hotmail.dk', 'hej');
 
-INSERT INTO companies(id, Email, CName) VALUES (1100, 'vamp@ink.com', 'BSucker');
-INSERT INTO companies(id, Email, CName) VALUES (1200, 'Gimme@your.kidney', 'Organ Harvest');
-INSERT INTO companies(id, Email, CName) VALUES (1300, 'NickFury@hotmail.com', 'Project Super Soldier');
-INSERT INTO companies(id, Email, CName) VALUES (1400, 'CaptainAmerica@hotmail.com', 'Reverse Super Soldier');
-INSERT INTO companies(id, Email, CName) VALUES (1500, 'Needle@gmail.com', 'Needle');
+INSERT INTO companies(Email, CompanyName) VALUES ('vamp@ink.com', 'BSucker');
+INSERT INTO companies(Email, CompanyName) VALUES ('Gimme@your.kidney', 'Organ Harvest');
+INSERT INTO companies(Email, CompanyName) VALUES ('NickFury@hotmail.com', 'Project Super Soldier');
+INSERT INTO companies(Email, CompanyName) VALUES ('CaptainAmerica@hotmail.com', 'Reverse Super Soldier');
+INSERT INTO companies(Email, CompanyName) VALUES ('Needle@gmail.com', 'Needle');
 
-INSERT INTO trials(id, CompanyID, TrialName) VALUES (2000, 1100, 'GoodSuckin');
-INSERT INTO trials(id, CompanyID, TrialName) VALUES (2100, 1200, 'You Only Need One');
-INSERT INTO trials(id, CompanyID, TrialName) VALUES (2200, 1300, 'Need new Captain');
-INSERT INTO trials(id, CompanyID, TrialName) VALUES (2300, 1400, 'Nick sucks');
+INSERT INTO trials(CompanyID, TrialName) VALUES (1100, 'GoodSuckin');
+INSERT INTO trials(CompanyID, TrialName) VALUES (1200, 'You Only Need One');
+INSERT INTO trials(CompanyID, TrialName) VALUES (1300, 'Need new Captain');
+INSERT INTO trials(CompanyID, TrialName) VALUES (1400, 'Nick sucks');
