@@ -22,7 +22,7 @@ class CompanyServiceTest {
         // check that the list contains the expected number of companies
         assertEquals(5, companies.size());
         // check that the first company in the list has the expected name
-        assertEquals("BSucker", companies.get(0).getCname());
+        assertEquals("BSucker", companies.get(0).getCompanyName());
     }
 
     // test the getCompany method with a valid id
@@ -39,7 +39,7 @@ class CompanyServiceTest {
         // check that the company is null
         assertNull(company2);
         // check that the company has the expected name
-        assertEquals("BSucker", company.getCname());
+        assertEquals("BSucker", company.getCompanyName());
         // check that the company has the expected email
         assertEquals("vamp@ink.com", company.getEmail());
     }

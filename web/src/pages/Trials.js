@@ -9,15 +9,12 @@ import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/mate
 function Trials() {
     const [trials, setTrials] = useState([])
     const [disease, setDisease] = useState('');
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState("");
 
     const handleChange = (event) => {
         setDisease(event.target.value);
     };
 
-    function apply() {
-
-    }
 
     useEffect(() => {
         async function getTrials() {
@@ -25,6 +22,19 @@ function Trials() {
         }
         getTrials()
     }, [])
+
+    function onButtonClick() {
+        let filtered = [];
+        trials.map(trial => {
+            if (trial.trialname.includes(search)) {
+                filtered.push(trial)
+                }
+            }
+        )
+        setTrials(filtered)
+        console.log(trials)
+    }
+
 
     return(
         <div>
@@ -45,9 +55,10 @@ function Trials() {
                         <Box sx={{ my: 3, mx: 2 }}>
                             <Grid container alignItems="center">
                                 <Grid item xs>
-                                    <TextField onChange={(text) => {
-                                        setSearch(text.target.value)
-                                    }}>
+                                    <TextField onChange={(e) => {
+                                        setSearch(e.target.value)
+                                    }}
+                                    >
                                         Search
                                     </TextField>
                                 </Grid>
@@ -81,7 +92,9 @@ function Trials() {
                             </FormControl>
                         </Box>
                         <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-                            <Button onClick={apply()}>Apply</Button>
+                            <Button onClick={() => {
+                                onButtonClick()
+                            }}>Apply</Button>
                         </Box>
                     </Box>
                 </Grid>
