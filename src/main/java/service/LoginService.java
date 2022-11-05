@@ -24,8 +24,10 @@ public class LoginService {
         Transaction transaction = session.beginTransaction();
         LoginData logindata;
         try {
-            User user = session.createQuery("from User where email = :email", User.class)
+            User user = new User();
+            user = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", login.getEmail())
+                    .setParameter("id", user.getId())
                     .uniqueResult();
             System.out.println(user);
             logindata = new LoginData();
