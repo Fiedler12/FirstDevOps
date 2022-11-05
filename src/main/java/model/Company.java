@@ -13,13 +13,14 @@ import lombok.*;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Company {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "cname")
-    private String cname;
+    @Column(name = "companyname")
+    private String companyName;
 }

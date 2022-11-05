@@ -1,7 +1,6 @@
 package model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -19,7 +18,7 @@ public class Trial{
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "companyid")
+    @JoinColumn(name = "company")
     private Company company;
 
     @Column(name = "trialname")

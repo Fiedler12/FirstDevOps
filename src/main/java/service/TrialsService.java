@@ -3,6 +3,7 @@ package service;
 import controller.HibernateController;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import model.Company;
 import model.Trial;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -46,11 +47,14 @@ public class TrialsService {
     }
 
     @POST
-    public int createTrial(Trial trial)
+    public Trial createTrial(Trial trial)
     {
         Session session = HibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
         session.persist(trial);
-        return trial.getId();
+        transaction.commit();
+        session.close();
+        return trial;
     }
 
 }

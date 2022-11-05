@@ -19,9 +19,11 @@ CREATE TABLE companies(
 
 CREATE TABLE trials(
     id SERIAL PRIMARY KEY,
-    CompanyID int NOT NULL,
+    company int NOT NULL,
     TrialName varchar(255) NOT NULL ,
-    FOREIGN KEY (CompanyID) REFERENCES companies
+    Location varchar(255),
+    Description Varchar(255),
+    FOREIGN KEY (company) REFERENCES companies
 );
 
 INSERT INTO users(Name)
@@ -78,8 +80,3 @@ INSERT INTO companies(Email, CompanyName) VALUES ('Gimme@your.kidney', 'Organ Ha
 INSERT INTO companies(Email, CompanyName) VALUES ('NickFury@hotmail.com', 'Project Super Soldier');
 INSERT INTO companies(Email, CompanyName) VALUES ('CaptainAmerica@hotmail.com', 'Reverse Super Soldier');
 INSERT INTO companies(Email, CompanyName) VALUES ('Needle@gmail.com', 'Needle');
-
-INSERT INTO trials(CompanyID, TrialName) VALUES (1100, 'GoodSuckin');
-INSERT INTO trials(CompanyID, TrialName) VALUES (1200, 'You Only Need One');
-INSERT INTO trials(CompanyID, TrialName) VALUES (1300, 'Need new Captain');
-INSERT INTO trials(CompanyID, TrialName) VALUES (1400, 'Nick sucks');
