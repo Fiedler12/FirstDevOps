@@ -7,7 +7,7 @@ const Loginstates = {LOGGING_IN:"Loading", LOGGEDOUT:"Logout", LOGGED_IN:"Logged
 
 
 
-class SettingsStore {
+export class SettingsStore {
 
     constructor(props) {
         makeAutoObservable(this,{},{autoBind:true});
@@ -18,7 +18,7 @@ class SettingsStore {
         const token = tokenstore.token;
         const user = JSON.parse(atob(token.split('.')[1])).user
         const userid = JSON.parse(user).id
-        console.log(JSON.parse(user).id);
+        //console.log(JSON.parse(user).id);
         const response = await fetch(baseUrl + 'api/users/' + userid);
         const json = await response.json()
         console.log(json)

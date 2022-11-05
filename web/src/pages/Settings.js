@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
 import {useEffect, useState} from "react";
-import {settingsStore} from "../stores/SettingsStore";
+import {SettingsStore} from "../stores/SettingsStore";
 
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-up
@@ -24,7 +24,7 @@ export default function Settings() {
 
     const [settings, setSettings] = useState([]);
 
-    const store = new settingsStore();
+    const store = new SettingsStore();
 
     useEffect(() => {
       async function getSettings() {
@@ -32,8 +32,7 @@ export default function Settings() {
 
       }
       getSettings()
-        console.log(settings)
-    })
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -72,7 +71,7 @@ export default function Settings() {
                                 <TextField
                                     fullWidth
 
-                                    label="Børge"
+                                    label={settings.name}
 
                                     disabled
                                 />
@@ -81,7 +80,7 @@ export default function Settings() {
                                 <TextField
                                     fullWidth
 
-                                    label="Petersen"
+                                    label={settings.lastname}
 
                                     disabled
                                 />
@@ -95,7 +94,7 @@ export default function Settings() {
                                 <TextField
                                     fullWidth
 
-                                    label="børgesemail@børge.dk"
+                                    label={settings.email}
 
                                     disabled
                                 />
@@ -109,7 +108,7 @@ export default function Settings() {
                                 <TextField
                                     fullWidth
 
-                                    label="010101-2345"
+                                    label={settings.cpr}
 
                                     disabled
                                 />

@@ -12,6 +12,7 @@ export class TrialStore {
     async fetchTrial(id) {
         const response = await fetch(baseUrl + "api/trials/" + id)
         const json = await response.json()
+        console.log(json)
         return json
 
     }
