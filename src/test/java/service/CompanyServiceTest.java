@@ -19,8 +19,6 @@ class CompanyServiceTest {
         assertNotNull(companies);
         // check that the list is not empty
         assertFalse(companies.isEmpty());
-        // check that the list contains the expected number of companies
-        assertEquals(5, companies.size());
         // check that the first company in the list has the expected name
         assertEquals("BSucker", companies.get(0).getCompanyName());
     }
@@ -31,11 +29,11 @@ class CompanyServiceTest {
         // create a new instance of the service
         CompanyService companyService = new CompanyService();
         // call the getCompany method with a valid id
-        Company company = companyService.getCompany(1100);
+        Company company = companyService.getCompany(1);
         // check that the company is not null
         assertNotNull(company);
         // call the getCompany method with an invalid id
-        Company company2 = companyService.getCompany(1);
+        Company company2 = companyService.getCompany(0);
         // check that the company is null
         assertNull(company2);
         // check that the company has the expected name

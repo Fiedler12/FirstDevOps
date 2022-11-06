@@ -18,10 +18,8 @@ class TrialsServiceTest {
             assertNotNull(trials);
             // check that the list is not empty
             assertFalse(trials.isEmpty());
-            // check that the list contains the expected number of trials
-            assertEquals(4, trials.size());
             // check that the first trial in the list has the expected name
-            assertEquals("GoodSuckin", trials.get(0).getTrialname());
+            assertEquals("BloodDonation", trials.get(0).getTrialname());
         }
 
         // test the getTrial method with a valid id
@@ -30,7 +28,7 @@ class TrialsServiceTest {
             // create a new instance of the service
             TrialsService trialsService = new TrialsService();
             // call the getTrial method with a valid id
-            Trial trial = trialsService.getTrial(2000);
+            Trial trial = trialsService.getTrial(852);
             // check that the trial is not null
             assertNotNull(trial);
             // call the getTrial method with an invalid id
@@ -38,9 +36,7 @@ class TrialsServiceTest {
             // check that the trial is null
             assertNull(trial2);
             // check that the trial has the expected name
-            assertEquals("GoodSuckin", trial.getTrialname());
-            // check that the trial has the expected company
-             assertEquals("Novo Nordisk", trial.getCompany());
+            assertEquals("BloodDonation", trial.getTrialname());
         }
 
 }

@@ -15,18 +15,19 @@ import java.util.List;
 public class UsersService {
     //TODO: replace with real database
     controller.HibernateController hibernateController = controller.HibernateController.getInstance();
-    @GET
-    public List<User> getUsers(){
-        Session session = hibernateController.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-
-        // get the trial from the database with hibernate
-        List<User> users = session.createQuery("from User", User.class).list();
-        System.out.println(users);
-        transaction.commit();
-        session.close();
-        return users;
-    }
+    // code not working and not used yet
+    //    @GET
+    //    public List<User> getUsers(){
+    //        Session session = hibernateController.getSessionFactory().openSession();
+    //        Transaction transaction = session.beginTransaction();
+    //
+    //        // get the trial from the database with hibernate
+    //        List<User> users = session.createQuery("from User", User.class).list();
+    //        System.out.println(users);
+    //        transaction.commit();
+    //        session.close();
+    //        return users;
+    //    }
 
     @GET
     @Path("/{id}")
