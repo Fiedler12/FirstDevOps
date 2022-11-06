@@ -8,12 +8,13 @@ import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/mate
 
 function Trials() {
     const [trials, setTrials] = useState([])
-
     const [disease, setDisease] = useState('');
+    const [search, setSearch] = useState("");
 
     const handleChange = (event) => {
         setDisease(event.target.value);
     };
+
 
     useEffect(() => {
         async function getTrials() {
@@ -21,6 +22,19 @@ function Trials() {
         }
         getTrials()
     }, [])
+
+    function onButtonClick() {
+        let filtered = [];
+        trials.map(trial => {
+            if (trial.trialname.includes(search)) {
+                filtered.push(trial)
+                }
+            }
+        )
+        setTrials(filtered)
+        console.log(trials)
+    }
+
 
     return(
         <div>
@@ -41,7 +55,10 @@ function Trials() {
                         <Box sx={{ my: 3, mx: 2 }}>
                             <Grid container alignItems="center">
                                 <Grid item xs>
-                                    <TextField>
+                                    <TextField onChange={(e) => {
+                                        setSearch(e.target.value)
+                                    }}
+                                    >
                                         Search
                                     </TextField>
                                 </Grid>
@@ -75,7 +92,9 @@ function Trials() {
                             </FormControl>
                         </Box>
                         <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-                            <Button>Apply</Button>
+                            <Button onClick={() => {
+                                onButtonClick()
+                            }}>Apply</Button>
                         </Box>
                     </Box>
                 </Grid>
@@ -85,7 +104,7 @@ function Trials() {
                         <Grid item xs={12} sm={6} md={4} lg={4} key={trial.id}>
                             <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {trial.company}
+                                    {trial.company.companyName}
                                 </Typography>
                                 <Typography variant="h5" component="div">
                                     {trial.trialname}

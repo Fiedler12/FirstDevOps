@@ -12,7 +12,17 @@ import {useEffect, useState} from "react";
 function TrialSignup() {
     const id = useParams().id
     const store = new TrialStore(id);
-    const [currentValues, setCurrentValues] = useState({} )
+    const [currentValues, setCurrentValues] = useState({
+        id: 0,
+        company: {
+            id: 0,
+            email: "0",
+            companyName: "0"
+        },
+        trialname: "Loading",
+        location: "Loading",
+        description: "loading"
+    } )
 
         useEffect(() => {
             async function fetchData() {
@@ -39,13 +49,13 @@ function TrialSignup() {
                         {(
                             <div>
                                 <Typography variant="h4" component="div" margin={2}>
-                                    {currentValues.company}
+                                    {currentValues.company.companyName}
                                 </Typography>
                                 <Typography variant="h5" marginX={4}>
                                     {currentValues.trialname}
                                 </Typography>
                                 <Typography variant="body1" marginX={7} marginY={2}>
-                                    filler text goes here:
+                                    {currentValues.company.email}
                                 </Typography>
                                 <Typography variant="body1" display="block" marginX={7} marginY={2} >
                                     {currentValues.description}
