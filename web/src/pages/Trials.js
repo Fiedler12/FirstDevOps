@@ -26,7 +26,7 @@ function Trials() {
     function onButtonClick() {
         let filtered = [];
         trials.map(trial => {
-            if (trial.trialname.includes(search)) {
+            if (trial.trialname.toLowerCase().includes(search.toLowerCase())) {
                 filtered.push(trial)
                 }
             }
