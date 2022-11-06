@@ -40,7 +40,8 @@ export class SettingsStore {
     async updateSettings (settings){
         const token = tokenstore.token;
         this.state = states.LOADING;
-
+        settings = JSON.stringify(settings)
+        console.log(settings)
         try {
             const user = JSON.parse(atob(token.split('.')[1])).user
             const userid = JSON.parse(user).id

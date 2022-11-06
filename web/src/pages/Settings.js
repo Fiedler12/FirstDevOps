@@ -25,13 +25,18 @@ const theme = createTheme();
 export default function Settings() {
 
     const [settings, setSettings] = useState([]);
+    const [user, setUser] = useState({})
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [cpr, setCpr] = useState('')
+    const [editable, setEditable] = useState(false)
 
     const store = new SettingsStore();
 
     useEffect(() => {
       async function getSettings() {
         setSettings(await store.fetchSettings())
-
+        setUser(settings)
       }
       getSettings()
     }, [])
@@ -47,7 +52,8 @@ export default function Settings() {
     // };
     const handleSubmit = async (event) => {
         event.preventDefault();
-        await store.updateSettings(settings)
+        setUser({name: name, email: email, cpr: cpr})
+        await store.updateSettings(user)
     };
 
     return (
@@ -78,9 +84,9 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.name}
-                                    // set name to value
+                                    defaultValue={settings.name}
                                     onChange={(e)=> {
-                                        setSettings.name = e.target.value
+                                        setName(e.target.value)
                                     }}
 
 
@@ -91,9 +97,7 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.lastname}
-                                    onChange={(e)=> {
-                                        setSettings.lastname = e.target.value
-                                    }}
+
 
                                 />
                             </Grid>
@@ -107,8 +111,9 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.email}
+                                    defaultValue={settings.email}
                                     onChange={(e)=> {
-                                        setSettings.email = e.target.value
+                                        setEmail(e.target.value)
                                     }}
 
                                 />
@@ -123,8 +128,9 @@ export default function Settings() {
                                     fullWidth
 
                                     label={settings.cpr}
+                                    defaultValue={settings.cpr}
                                     onChange={(e)=> {
-                                        setSettings.cpr = e.target.value
+                                        setCpr(e.target.value)
                                     }}
 
                                 />
