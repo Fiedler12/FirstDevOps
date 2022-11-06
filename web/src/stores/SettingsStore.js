@@ -11,10 +11,10 @@ export class SettingsStore {
 
     constructor(props) {
         makeAutoObservable(this,{},{autoBind:true});
-        this.fetchSettings();
     }
 
     async fetchSettings (){
+        console.log("entering fetch")
         const token = tokenstore.token;
         this.state = states.LOADING;
         try {
@@ -38,6 +38,7 @@ export class SettingsStore {
     }
     // put http request to update settings
     async updateSettings (settings){
+        console.log("entering update")
         const token = tokenstore.token;
         this.state = states.LOADING;
         settings = JSON.stringify(settings)
@@ -52,7 +53,7 @@ export class SettingsStore {
                     Authorization: token,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(settings)
+                body: settings
             });
             const json = await response.json()
                 .then(this.state = states.DONE)
