@@ -50,12 +50,6 @@ public class LoginService {
         session.close();
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
     }
-    @POST
-    @Path("tokentest")
-    public User postToken(String token){
-        User validate = JWTHandler.validate(token);
-        return validate;
-    }
 
 }
 
