@@ -2,7 +2,7 @@ FROM maven:3.8.6-openjdk-18 as MAVEN
 WORKDIR /tmp
 COPY /src/ ./src
 COPY /pom.xml ./
-RUN mvn package
+RUN mvn package -Dmaven.test.skip
 
 FROM node:18-slim AS REACT
 WORKDIR /tmp
