@@ -1,5 +1,5 @@
 import './App.css';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import Settings from './pages/Settings';
 import Trials from './pages/Trials';
 import About from './pages/About';
@@ -12,6 +12,8 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import CreateTrial from "./pages/CreateTrial";
 import TrialSignup from "./pages/TrialSignup";
+import { tokenstore } from "./stores/TokenStore"
+
 
 function App() {
   return (
@@ -22,11 +24,11 @@ function App() {
             <Route path="/about" element={<About/>}/>
             <Route path="/signin" element={<Signin/>}/>
             <Route path="/signup" element={<Signup/>}/>
-            <Route path="/createTrials" element={<CreateTrial/>}/>
+            <Route path="/createTrials" element={tokenstore.token ? <CreateTrial /> : <Navigate replace to="/signin"/> }/>
             <Route path="/homepage" element={<Homepage/>}/>
-            <Route path="/trials" element={<Trials/>}/>
+            <Route path="/trials" element={tokenstore.token ? <Trials/> : <Navigate replace to="/signin"/> }/>
             <Route path="/settings" element={<Settings/>}/>
-            <Route path="/trialSignup" element={<TrialSignup/>}/>
+            <Route path="/trialsignup/:id" element={tokenstore.token ? <TrialSignup/> : <Navigate replace to="/signin"/> }/>
         </Routes>
     </div>
   );
@@ -44,9 +46,15 @@ function App() {
                 />
             </Button>
             <Button color="inherit" size={"large"} href={"#/about"}>About</Button>
-            <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button>
-            <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
-            <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
+            {!tokenstore.token ?
+                <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button> :
+                <div>
+                    <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
+                    <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
+                    <Button color="inherit" size={"large"} href={tokenstore.logOut()}>Log out</Button>
+                </div>
+            }
+            <div></div>
         </Toolbar>
     </AppBar>
     )
