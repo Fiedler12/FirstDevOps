@@ -46,9 +46,15 @@ function App() {
                 />
             </Button>
             <Button color="inherit" size={"large"} href={"#/about"}>About</Button>
-            <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button>
-            <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
-            <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
+            {!tokenstore.token ?
+                <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button> :
+                <div>
+                    <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
+                    <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
+                    <Button color="inherit" size={"large"} href={tokenstore.logOut()}>Log out</Button>
+                </div>
+            }
+            <div></div>
         </Toolbar>
     </AppBar>
     )

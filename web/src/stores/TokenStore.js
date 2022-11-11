@@ -1,4 +1,5 @@
 import {action, makeAutoObservable, runInAction, decorate, observable} from "mobx";
+import {useNavigate} from "react-router-dom";
 
 const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080/":""; //Check if dev environment
 
@@ -43,7 +44,9 @@ class TokenStore {
             this.state = Loginstates.LOGGEDOUT;
             console.log("Login failed")
         }
-
+    }
+    async logOut() {
+        localStorage.removeItem("probeToken");
     }
 
 
