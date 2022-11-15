@@ -36,8 +36,6 @@ const theme = createTheme();
 
 
 export default function Signin() {
-    const [state, setState] = useState('')
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -45,7 +43,6 @@ export default function Signin() {
         tokenstore.doLogin().then(() =>{
             if (tokenstore.state === "LoggedIn") {
                 window.location.href = "/#/homepage";
-
             }
         })
 
