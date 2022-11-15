@@ -3,11 +3,11 @@ import AddIcon from '@mui/icons-material/Add';
 import{trialsStore} from "../stores/TrialsStore";
 import {useEffect, useState} from "react";
 import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
+import {observer} from "mobx-react-lite";
 
 
 
 function Trials() {
-    const [trials, setTrials] = useState([])
     const [disease, setDisease] = useState('');
     const [search, setSearch] = useState("");
 
@@ -15,24 +15,8 @@ function Trials() {
         setDisease(event.target.value);
     };
 
-
-    useEffect(() => {
-        async function getTrials() {
-            setTrials(await trialsStore.fetchTrials())
-        }
-        getTrials()
-    }, [])
-
     function onButtonClick() {
-        let filtered = [];
-        trials.map(trial => {
-            if (trial.trialname.toLowerCase().includes(search.toLowerCase())) {
-                filtered.push(trial)
-                }
-            }
-        )
-        setTrials(filtered)
-        console.log(trials)
+
     }
 
 
@@ -100,7 +84,7 @@ function Trials() {
                 </Grid>
                 <Grid item xs={8}>
                     <Grid container spacing={4}>
-                        {trials.map(trial => (
+                        {trialsStore.trials.map(trial => (
                         <Grid item xs={12} sm={6} md={4} lg={4} key={trial.id}>
                             <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -129,4 +113,4 @@ function Trials() {
 
 }
 
-export default Trials;
+export default observer(Trials);
