@@ -3,6 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 
 @Entity
 @Table(name = "USERS")//WATCH out  USER is a reserved name!
@@ -17,16 +18,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @Column(name = "name")
+    @Column(name = "Name")
     private String name;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
-    @Column(name = "password")
+    @Column(name = "Password")
     private String password;
-    @Column(name = "cpr")
-    private int cpr;
-    @Column @JsonIgnore
-    private String hash;
+    @Column(name = "Salt")
+    private int salt;
+    @Column(name = "Privilege")
+    private String privilege;
+
+    @OneToMany(mappedBy = "UserDiseases")
+    private List<Disease> diseases;
+
 
     public User(int id, String email, String s) {
         this.id = id;

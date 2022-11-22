@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "disease")//WATCH out  USER is a reserved name!
+@Table(name = "diseases")//WATCH out  USER is a reserved name!
 @Getter
 @Setter
 @Builder
