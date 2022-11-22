@@ -5,6 +5,8 @@ const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080
 
 class TrialsStore {
 
+    trials = []
+
     constructor(props) {
         makeAutoObservable(this,{},{autoBind:true});
         this.fetchTrials();
@@ -14,7 +16,7 @@ class TrialsStore {
         const response = await fetch(baseUrl + "api/trials")
         const json = await response.json()
         console.log(json)
-        return json
+        this.trials = json
     }
 }
 
