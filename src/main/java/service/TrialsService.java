@@ -4,13 +4,16 @@ import controller.HibernateController;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import model.Company;
+import model.Disease;
 import model.Trial;
+import model.TrialDiseases;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,8 +22,9 @@ import java.util.List;
 public class TrialsService {
     //TODO: replace with real database
     controller.HibernateController hibernateController = controller.HibernateController.getInstance();
+
     @GET
-    public List<Trial> getTrials(){
+    public List<Trial> getTrials() {
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -34,7 +38,7 @@ public class TrialsService {
 
     @GET
     @Path("/{id}")
-    public Trial getTrial(@PathParam("id") int id){
+    public Trial getTrial(@PathParam("id") int id) {
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -47,8 +51,7 @@ public class TrialsService {
     }
 
     @POST
-    public Trial createTrial(Trial trial)
-    {
+    public Trial createTrial(Trial trial) {
         Session session = HibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.persist(trial);
@@ -57,5 +60,23 @@ public class TrialsService {
         return trial;
     }
 
+    @GET
+    @Path("/disease/{id}")
+    public List<Trial> getDiseaseTrials(@PathParam("id") int id) {
+        Session session = HibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
+        List<Trial> result = new ArrayList<>();
+        for (Trial trial : trials) {
+            for (TrialDiseases trialDiseases : trial.getTrialDiseases()) {
+                if (trialDiseases.getDisease().getId() == id) {
+                    result.add(trial);
+                }
+            }
+        }
+        transaction.commit();
+        session.close();
+        return result;
+    }
 
 }

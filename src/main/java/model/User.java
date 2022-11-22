@@ -25,12 +25,11 @@ public class User {
     @Column(name = "Password")
     private String password;
     @Column(name = "Salt")
-    private int salt;
+    private String salt;
     @Column(name = "Privilege")
     private String privilege;
-
-    @OneToMany(mappedBy = "UserDiseases")
-    private List<Disease> diseases;
+    @OneToMany(mappedBy = "disease")
+    private List<UserDiseases> userDiseases;
 
 
     public User(int id, String email, String s) {

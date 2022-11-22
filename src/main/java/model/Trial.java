@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -32,10 +33,10 @@ public class Trial{
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "TrialDiseases")
-    private List<Disease> diseases;
+    @OneToMany(mappedBy = "disease")
+    private List<TrialDiseases> trialDiseases;
 
-    @OneToMany(mappedBy = "subscribe")
-    private List<User> users;
+    @OneToMany(mappedBy = "user")
+    private List<Subscribe> subscribes;
 
 }

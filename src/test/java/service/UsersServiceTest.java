@@ -23,7 +23,6 @@ class UsersServiceTest {
         user.setId(1);
         user.setName("Rune");
         user.setEmail("test@test.test");
-        user.setCpr(12345678);
         user.setPassword("test");
         String token = JWTHandler.generateJwtToken(user);
         // call the getUser method with a valid id and a valid token in the header of the request (token is valid)
@@ -50,7 +49,6 @@ class UsersServiceTest {
         user.setId(1);
         user.setName("Rune");
         user.setEmail("test@test.test");
-        user.setCpr(12345678);
         user.setPassword("test");
         String token = JWTHandler.generateJwtToken(user);
         // call the putUser method with a valid id and a valid token in the header of the request (token is valid) and a valid user object in the body of the request (user object is valid) and check if it returns the updated user object with the expected values
@@ -63,8 +61,6 @@ class UsersServiceTest {
         assertEquals(1, user1.getId());
         // check that the user has the expected email
         assertEquals("test@test.test", user1.getEmail());
-        // check that the user has the expected cpr
-        assertEquals(12345678, user1.getCpr());
         // check that the user has the expected password
         assertEquals("test", user1.getPassword());
         // call the putUser method with an invalid id and a valid token in the header of the request (token is valid) and a valid user object in the body of the request (user object is valid) and check if it throws an exception

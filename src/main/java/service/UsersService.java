@@ -66,7 +66,6 @@ public class UsersService {
             userDB.setName(user.getName());
             userDB.setEmail(user.getEmail());
             userDB.setPassword(user.getPassword());
-            userDB.setCpr(12345678);
             // session.persist(userDB);
             session.merge(userDB);
             transaction.commit();
