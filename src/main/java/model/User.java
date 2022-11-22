@@ -23,10 +23,9 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "cpr")
-    private int cpr;
-    @Column @JsonIgnore
-    private String hash;
+    @Column(name = "salt")
+    private String salt;
+
 
     public User(int id, String email, String s) {
         this.id = id;

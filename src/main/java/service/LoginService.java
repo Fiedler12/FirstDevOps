@@ -10,6 +10,7 @@ import model.LoginData;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 @Path("login")
@@ -39,9 +40,7 @@ public class LoginService {
             throw new NotAuthorizedException("User not found");
         }
 
-
-
-        if (login!=null && login.equals(logindata) ){
+        if (login!=null && login.getEmail().equals(logindata.getEmail()) && BCrypt.checkpw(login.getPassword(), logindata.getPassword())) {
             transaction.commit();
             session.close();
             return JWTHandler.generateJwtToken(new User(user.getId(), login.getEmail(), ""));

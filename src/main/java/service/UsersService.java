@@ -7,6 +7,7 @@ import model.Trial;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.List;
 
@@ -15,19 +16,6 @@ import java.util.List;
 public class UsersService {
     //TODO: replace with real database
     controller.HibernateController hibernateController = controller.HibernateController.getInstance();
-    // code not working and not used yet
-    //    @GET
-    //    public List<User> getUsers(){
-    //        Session session = hibernateController.getSessionFactory().openSession();
-    //        Transaction transaction = session.beginTransaction();
-    //
-    //        // get the trial from the database with hibernate
-    //        List<User> users = session.createQuery("from User", User.class).list();
-    //        System.out.println(users);
-    //        transaction.commit();
-    //        session.close();
-    //        return users;
-    //    }
 
     @GET
     @Path("/{id}")
@@ -65,8 +53,10 @@ public class UsersService {
         if (auth.getId() == userDB.getId()){
             userDB.setName(user.getName());
             userDB.setEmail(user.getEmail());
-            userDB.setPassword(user.getPassword());
-            userDB.setCpr(12345678);
+            String salt = BCrypt.gensalt();
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
+            userDB.setSalt(salt);
+            userDB.setPassword(hashedPassword);
             // session.persist(userDB);
             session.merge(userDB);
             transaction.commit();
