@@ -5,7 +5,7 @@ import lombok.*;
 
 
 @Entity
-@Table(name = "companies")
+@Table(name = "Companies")
 @Getter
 @Setter
 @Builder
@@ -18,9 +18,9 @@ public class Company {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
 
-    @Column(name = "companyname")
+    @Column(name = "Companyname")
     private String companyName;
 }
