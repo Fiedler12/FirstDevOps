@@ -68,4 +68,40 @@ public class UsersService {
             throw new NotAuthorizedException("User not authorized");
         }
     }
+
+    //Does Not wotk yet
+    @POST
+    @Path("/register")
+    public User postUser(User user) throws NotAuthorizedException {
+        Session session = hibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        User userDB;
+        try {
+            userDB = session.createQuery("from User where email = :email", User.class)
+                    .setParameter("email", user.getEmail())
+                    .uniqueResult();
+            System.out.println(userDB);
+        }catch (Exception e) {
+            transaction.commit();
+            session.close();
+            throw new NotAuthorizedException("User not found");
+        }
+        if (userDB != null){
+            transaction.commit();
+            session.close();
+            throw new NotAuthorizedException("User already exists");
+        } else {
+            String salt = BCrypt.gensalt();
+            String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
+            System.out.println(user);
+            user.setSalt(salt);
+            user.setPassword(hashedPassword);
+            System.out.println(user);
+            session.persist(user);
+            System.out.println(user);
+            transaction.commit();
+            session.close();
+            return user;
+        }
+    }
 }
