@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "disease")//WATCH out  USER is a reserved name!
+@Table(name = "diseases")
 @Getter
 @Setter
 @Builder
@@ -14,7 +14,7 @@ import lombok.*;
 public class Disease {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "diseaseid")
     private int id;
 
     @Column(name = "name")
