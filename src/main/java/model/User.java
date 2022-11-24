@@ -25,7 +25,8 @@ public class User {
     private String password;
     @Column(name = "salt")
     private String salt;
-
+    @Column(name = "privilege")
+    private int privilege;
 
     public User(int id, String email, String s) {
         this.id = id;
