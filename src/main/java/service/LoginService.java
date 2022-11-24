@@ -35,7 +35,7 @@ public class LoginService {
             logindata.setPassword(user.getPassword());
             System.out.println(logindata);
         }catch (Exception e) {
-            transaction.commit();
+            transaction.rollback();
             session.close();
             throw new NotAuthorizedException("User not found");
         }
@@ -45,7 +45,7 @@ public class LoginService {
             session.close();
             return JWTHandler.generateJwtToken(new User(user.getId(), login.getEmail(), ""));
         }
-        transaction.commit();
+        transaction.rollback();
         session.close();
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
     }

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrialsServiceTest {
         // test the getTrials method
         @org.junit.jupiter.api.Test
-        void getTrials() {
+        void getTrials() throws NotAuthorizedException {
             // create a new instance of the service
             TrialsService trialsService = new TrialsService();
             // call the getTrials method
@@ -24,7 +24,7 @@ class TrialsServiceTest {
 
         // test the getTrial method with a valid id
         @org.junit.jupiter.api.Test
-        void getTrial() {
+        void getTrial() throws NotAuthorizedException {
             // create a new instance of the service
             TrialsService trialsService = new TrialsService();
             // call the getTrial method with a valid id
