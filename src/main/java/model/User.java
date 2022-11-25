@@ -1,9 +1,10 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +32,8 @@ public class User {
     @Column(name = "privilege")
     private int privilege;
 
-    @OneToMany(mappedBy = "userDiseaseId.disease", fetch = FetchType.EAGER)
-    private List<UserDisease> userDiseases;
+    @OneToMany(mappedBy = "userDiseaseId.user", fetch = FetchType.EAGER)
+    private List<UserDisease> userDiseases = new ArrayList<>();
 
     public User(int id, String email, String s) {
         this.id = id;
