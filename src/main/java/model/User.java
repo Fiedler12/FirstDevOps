@@ -40,4 +40,8 @@ public class User {
         this.email = email;
         this.password = s;
     }
+
+    public User(int id) {
+        this.id = id;
+    }
 }
