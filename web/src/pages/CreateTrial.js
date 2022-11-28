@@ -1,25 +1,23 @@
 import * as React from 'react';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import {Button, Fab, Stack} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
+import {Button, MenuItem, Select, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
-import {creationStore} from "../stores/TrialCreationStore";
+import {trialCreationStore} from "../stores/TrialCreationStore";
+import {observer} from "mobx-react-lite";
 
-export default function CreateTrial()
+function CreateTrial()
 {
-
-    const [trialName, setTrialName] = useState("");
-    const [companyName, setCompanyName] = useState("");
-
+    const [disease, setDisease] = useState({})
     const handleSubmit = async (event) =>{
         event.preventDefault();
-        console.log("Hello")
 
-        creationStore.postTrial().then(() =>{
+        trialCreationStore.postTrial().then(() =>{
             window.location.href= "/#/trials"
         })
+
+
     }
 
 
@@ -38,7 +36,7 @@ export default function CreateTrial()
                             label="Trial name"
                             defaultValue=""
                             onChange={(e) =>{
-                                creationStore.trialdata.trialname = e.target.value
+                                trialCreationStore.trialdata.trialname = e.target.value
                             }}
                         />
                         <TextField
@@ -47,7 +45,7 @@ export default function CreateTrial()
                             label="Company or org"
                             defaultValue=""
                             onChange={(e) =>{
-                                creationStore.trialdata.company.id = e.target.value
+                                trialCreationStore.trialdata.company.id = e.target.value
                             }}
                         />
                         <TextField
@@ -56,7 +54,7 @@ export default function CreateTrial()
                             label="Location"
                             defaultValue=""
                             onChange={(e) =>{
-                                creationStore.trialdata.location = e.target.value
+                                trialCreationStore.trialdata.location = e.target.value
                             }}
                         />
 
@@ -72,7 +70,7 @@ export default function CreateTrial()
                                        helperText="Describe the trial"
                                        variant="filled"
                                        onChange={(e) =>{
-                                           creationStore.trialdata.description = e.target.value
+                                           trialCreationStore.trialdata.description = e.target.value
                                        }}
                             />
                         </div>
@@ -82,9 +80,16 @@ export default function CreateTrial()
                             <Typography variant={"h6"}>
                                 Medical specifications
                             </Typography>
-                            <Fab color="primary" aria-label="add" size="small">
-                                <AddIcon/>
-                            </Fab>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={trialCreationStore.diseases}
+                                label="Disease"
+                                onChange={setDisease}>
+                                {trialCreationStore.diseases.map(disease => (
+                                    <MenuItem value={disease.id}> {disease.name}</MenuItem>
+                                ))}
+                            </Select>
                         </Stack>
 
                     </Grid>
@@ -96,4 +101,4 @@ export default function CreateTrial()
 
         </div>
     )
-}
+} export default observer(CreateTrial)

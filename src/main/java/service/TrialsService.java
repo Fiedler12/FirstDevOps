@@ -4,13 +4,16 @@ import controller.HibernateController;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import model.Company;
+import model.Disease;
 import model.Trial;
+import model.TrialDisease;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class TrialsService {
     @GET
     public List<Trial> getTrials() throws NotAuthorizedException {
         Session session = hibernateController.getSessionFactory().openSession();
+
         Transaction transaction = session.beginTransaction();
         try {
             List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
@@ -52,6 +56,33 @@ public class TrialsService {
             transaction.rollback();
             session.close();
             throw new NotAuthorizedException("Trial not found");
+        }
+    }
+
+    @GET
+    @Path("disease={id}")
+    public List<Trial> getDiseaseSpecificTrial(@PathParam("id")int id) throws NotAuthorizedException {
+        Session session = hibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
+            transaction.commit();
+            session.close();
+            List<Trial> result = new ArrayList<>();
+            for (Trial trial : trials) {
+                for (TrialDisease trialDisease : trial.getTrialDiseases()) {
+                    Disease disease = trialDisease.getTrialDiseaseId().getDisease();
+                    if (disease.getId() == id) {
+                        result.add(trial);
+                    }
+                }
+            }
+            return result;
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new NotAuthorizedException("Trials not found");
+
         }
     }
 

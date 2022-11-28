@@ -2,17 +2,22 @@ import {makeAutoObservable} from "mobx";
 
 const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080/":"";
 
-class TrialCreationStore{
+class TrialCreationStore {
     trialdata = {company:{
         id:1
         },
         trialname:"",
         location:"",
         description:"",
+        diseases:[]
     }
 
-    contructor(){
+    diseases = [];
+
+
+    constructor(){
         makeAutoObservable(this, {}, {autoBind: true});
+        this.getDiseases();
     }
 
     async postTrial()
@@ -29,6 +34,12 @@ class TrialCreationStore{
         return json
     }
 
+    async getDiseases() {
+        const response = await fetch(baseUrl + "api/diseases")
+        const json = await response.json()
+        this.diseases = json;
+    }
+
 }
 
-export const creationStore = new TrialCreationStore();
+export const trialCreationStore = new TrialCreationStore();
