@@ -39,7 +39,6 @@ class TrialCreationStore {
         const json = await response.json()
         this.diseases = json;
     }
-
 }
 
 export const trialCreationStore = new TrialCreationStore();
