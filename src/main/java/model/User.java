@@ -27,8 +27,10 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
+
     @Column(name = "salt")
     private String salt;
+
     @Column(name = "privilege")
     private int privilege;
 

@@ -97,4 +97,7 @@ INSERT INTO companies(Email, CompanyName) VALUES ('NickFury@hotmail.com', 'Proje
 INSERT INTO companies(Email, CompanyName) VALUES ('CaptainAmerica@hotmail.com', 'Reverse Super Soldier');
 INSERT INTO companies(Email, CompanyName) VALUES ('Needle@gmail.com', 'Needle');
 
-INSERT INTO diseases(name) VALUES ('diebetes')
+INSERT INTO diseases(name) VALUES ('diebetes');
+INSERT INTO diseases(name) values ('Cancer');
+INSERT INTO diseases(name) values ('Being a Javascript developer');
+INSERT INTO diseases(name) values ('ALS');
