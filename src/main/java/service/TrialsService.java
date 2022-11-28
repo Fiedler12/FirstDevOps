@@ -86,6 +86,9 @@ public class TrialsService {
         }
     }
 
+
+    //Jeg tror vi skal modtage listen over vores diseases for sig selv og så efter vi har fået trial id tilføje dem.
+    //Efter vi har modtaget vores id retur i frontend skal vi sende det retur med den nye liste.
     @POST
     public Trial createTrial(Trial trial) throws NotAuthorizedException {
         Session session = HibernateController.getSessionFactory().openSession();
