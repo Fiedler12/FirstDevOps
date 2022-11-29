@@ -4,11 +4,11 @@ import{trialsStore} from "../stores/TrialsStore";
 import {useEffect, useState} from "react";
 import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
 import {observer} from "mobx-react-lite";
-
+import {diseaseStore} from "../stores/DiseaseStore";
 
 
 function Trials() {
-    const [disease, setDisease] = useState('');
+    const [disease, setDisease] = useState('Any');
     const [search, setSearch] = useState("");
 
     const handleChange = (event) => {
@@ -16,7 +16,12 @@ function Trials() {
     };
 
     function onButtonClick() {
-
+        if(disease === 'Any' || disease === -1) {
+            trialsStore.fetchTrials()
+        }
+        else {
+            trialsStore.fetchSpecificDisease()
+        }
     }
 
 
@@ -69,9 +74,11 @@ function Trials() {
                                     value={disease}
                                     label="Disease"
                                     onChange={handleChange}>
-                                    <MenuItem value={'Cancer'}>Cancer</MenuItem>
-                                    <MenuItem value={'Diabetes'}>Diabetes</MenuItem>
-                                    <MenuItem value={'Being Beta'}>Being beta</MenuItem>
+                                    <MenuItem value={-1}>Any</MenuItem>
+                                    {diseaseStore.diseases.map( disease => (
+                                        <MenuItem value={disease.id}>{disease.name}</MenuItem>
+                                        ))}
+
                                 </Select>
                             </FormControl>
                         </Box>

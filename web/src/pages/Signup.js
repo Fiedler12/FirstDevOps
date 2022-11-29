@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {signupStore} from "../stores/SignupStore";
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-up
 
@@ -27,18 +28,18 @@ function Copyright(props) {
         </Typography>
     );
 }
-
 const theme = createTheme();
 
 export default function Signup() {
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
+        //const data = new FormData(event.currentTarget);
+        if (signupStore.userData.name !== "" && signupStore.userData.email !== "" && signupStore.userData.password !== "") {
+            signupStore.postSignup().then(() => {
+                window.location.href = "/#/signin"
+            })
+        }
+      }
 
   return (
     <ThemeProvider theme={theme}>
@@ -60,25 +61,19 @@ export default function Signup() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="name"
+                  label="Name"
                   autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
+                  onChange={(e) => {
+                        signupStore.userData.name = e.target.value
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -89,6 +84,10 @@ export default function Signup() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => {
+                        signupStore.userData.email = e.target.value
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
@@ -100,12 +99,20 @@ export default function Signup() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => {
+                    signupStore.userData.password = e.target.value
+                    }
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
+                  label="Check if you signup as a company"
+                  onChange={() => {
+                    signupStore.userData.privilege = 2
+                    }
+                  }
                 />
               </Grid>
             </Grid>
@@ -114,7 +121,7 @@ export default function Signup() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              href={"#/homepage"}
+              onClick={handleSubmit}
             >
               Sign Up
             </Button>

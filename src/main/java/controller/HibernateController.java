@@ -1,7 +1,10 @@
 
 package controller;
 
-import model.*;
+import model.Company;
+import model.Disease;
+import model.Trial;
+import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -16,10 +19,7 @@ public class HibernateController {//Should be a singleton…
         configuration.addAnnotatedClass(User.class); //remember to do this for all DB entities
         configuration.addAnnotatedClass(Trial.class);
         configuration.addAnnotatedClass(Company.class);
-        configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Disease.class);
-        configuration.addAnnotatedClass(UserDisease.class);
-        configuration.addAnnotatedClass(UserDiseaseId.class);
         configuration.setProperty("hibernate.connection.username", System.getenv("devopse22user"));
         configuration.setProperty("hibernate.connection.password", System.getenv("devopse22pass"));
         //configuration.setProperty("hibernate.default_schema","dev");

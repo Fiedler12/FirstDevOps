@@ -1,12 +1,11 @@
 package model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "USERS")//WATCH out  USER is a reserved name!
@@ -27,13 +26,24 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
+
     @Column(name = "salt")
     private String salt;
+
     @Column(name = "privilege")
     private int privilege;
 
-    @OneToMany(mappedBy = "userDiseaseId.user", fetch = FetchType.EAGER)
-    private List<UserDisease> userDiseases = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "userDiseases",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "disease_id")})
+    List<Disease> diseases = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "subscriptions",
+        joinColumns = {@JoinColumn(name = "user_id")},
+        inverseJoinColumns = {@JoinColumn(name = "trial_id")})
+    List<Trial> subscriptions = new ArrayList<>();
 
     public User(int id, String email, String s) {
         this.id = id;
