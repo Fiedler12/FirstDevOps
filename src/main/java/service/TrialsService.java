@@ -34,6 +34,29 @@ public class TrialsService {
         }
     }
 
+    @POST
+    @Path("/init")
+    public void init() {
+        HibernateController hibernateController = HibernateController.getInstance();
+        Session session = hibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try{;
+            Company company = new Company();
+            company.setCompanyName("Test");
+            company.setEmail("test@popo.com");
+            session.persist(company);
+            Company company1 = new Company();
+            company1.setCompanyName("Test2");
+            company1.setEmail("test@Trans.com");
+            session.persist(company1);
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+        }
+    }
+
     @GET
     @Path("/{id}")
     public Trial getTrial(@PathParam("id") int id) throws NotAuthorizedException {
