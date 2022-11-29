@@ -1,17 +1,18 @@
 import * as React from 'react';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import {Button, Fab, Stack} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-import {useEffect, useState} from "react";
+import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {useState} from "react";
 import {creationStore} from "../stores/TrialCreationStore";
+import {diseaseStore} from "../stores/DiseaseStore"
+import {observer} from "mobx-react-lite";
 
-export default function CreateTrial()
+function CreateTrial()
 {
 
     const [trialName, setTrialName] = useState("");
     const [companyName, setCompanyName] = useState("");
+    const [disease, setDisease] = useState('');
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
@@ -22,6 +23,9 @@ export default function CreateTrial()
         })
     }
 
+    const handleChange = (event) => {
+        setDisease(event.target.value);
+    };
 
 
     return (
@@ -77,16 +81,20 @@ export default function CreateTrial()
                             />
                         </div>
                     </Grid>
-                    <Grid item xs={5}>
-                        <Stack direction={"row"} spacing={2}>
-                            <Typography variant={"h6"}>
-                                Medical specifications
-                            </Typography>
-                            <Fab color="primary" aria-label="add" size="small">
-                                <AddIcon/>
-                            </Fab>
-                        </Stack>
-
+                    <Grid item xs={3}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Disease</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={disease}
+                                label="Disease"
+                                onChange={handleChange}>
+                                {diseaseStore.diseases.map(disease => (
+                                    <MenuItem value={disease.id}>{disease.name}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
                     </Grid>
                 </Grid>
                 <Button onClick={handleSubmit}>
@@ -97,3 +105,4 @@ export default function CreateTrial()
         </div>
     )
 }
+export default observer(CreateTrial)
