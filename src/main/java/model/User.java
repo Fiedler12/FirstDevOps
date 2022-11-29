@@ -48,6 +48,9 @@ public class User {
     public void addSubscription(Trial trial) {
         subscriptions.add(trial);
     }
+    public void removeSubscription(Trial trial) {
+        subscriptions.remove(trial);
+    }
     public User(int id, String email, String s) {
         this.id = id;
         this.email = email;
