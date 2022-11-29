@@ -33,7 +33,10 @@ public class Trial{
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "trialDiseaseId.trial", fetch = FetchType.EAGER)
-    private List<TrialDisease> trialDiseases = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "trialDiseases",
+            joinColumns = {@JoinColumn(name = "trial_id")},
+            inverseJoinColumns = {@JoinColumn(name = "disease_id")})
+    List<Disease> diseases = new ArrayList<>();
 
 }

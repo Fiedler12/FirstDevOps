@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS trials;
 DROP TABLE IF EXISTS companies;
-DROP TABLE IF EXISTS disease;
+DROP TABLE IF EXISTS trialdiseases;
 DROP TABLE IF EXISTS userdiseases;
-DROP TABLE IF EXISTS diseases;
+
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -27,19 +27,6 @@ CREATE TABLE trials(
     Location varchar(255),
     Description Varchar(255),
     FOREIGN KEY (company) REFERENCES companies
-);
-
-CREATE TABLE diseases(
-    diseaseid SERIAL PRIMARY KEY,
-    name varchar(255) NOT NULL
-);
-
-CREATE TABLE userdiseases(
-   diseaseid int NOT NULL ,
-   userid int NOT NULL ,
-   FOREIGN KEY (diseaseid) references diseases,
-   FOREIGN KEY (userid) references users,
-   PRIMARY KEY (diseaseid, userid)
 );
 
 INSERT INTO users(Name)
@@ -96,8 +83,3 @@ INSERT INTO companies(Email, CompanyName) VALUES ('Gimme@your.kidney', 'Organ Ha
 INSERT INTO companies(Email, CompanyName) VALUES ('NickFury@hotmail.com', 'Project Super Soldier');
 INSERT INTO companies(Email, CompanyName) VALUES ('CaptainAmerica@hotmail.com', 'Reverse Super Soldier');
 INSERT INTO companies(Email, CompanyName) VALUES ('Needle@gmail.com', 'Needle');
-
-INSERT INTO diseases(name) VALUES ('diebetes');
-INSERT INTO diseases(name) values ('Cancer');
-INSERT INTO diseases(name) values ('Being a Javascript developer');
-INSERT INTO diseases(name) values ('ALS');
