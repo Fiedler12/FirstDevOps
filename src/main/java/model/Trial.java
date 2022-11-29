@@ -3,6 +3,9 @@ package model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "TRIALS")
 @Getter
@@ -29,5 +32,11 @@ public class Trial{
 
     @Column(name = "description")
     private String description;
+
+    @ManyToMany
+    @JoinTable(name = "trialDiseases",
+            joinColumns = {@JoinColumn(name = "trial_id")},
+            inverseJoinColumns = {@JoinColumn(name = "disease_id")})
+    List<Disease> diseases = new ArrayList<>();
 
 }

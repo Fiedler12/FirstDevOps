@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS trials;
 DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS trialdiseases;
+DROP TABLE IF EXISTS userdiseases;
+
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
