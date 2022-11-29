@@ -12,11 +12,6 @@ function CreateTrial()
     const [diseaseList, setDiseaseList] = useState([]);
     const [disease, setDisease] = useState({})
 
-    useEffect(() => {
-        console.log("changed disease")
-        console.log(disease)
-    }, [disease])
-
     const handleChange = (event) => {
         setDisease(event.target.value);
     };
@@ -85,7 +80,7 @@ function CreateTrial()
                 </Grid>
                 <Grid item xs={5}>
                     <Button onClick={() => {
-                        trialCreationStore.trialdata.diseases.push(disease)
+                        trialCreationStore.submitDisease(disease.id)
                     }
                     }>Submit illness</Button>
                     <Stack direction={"row"} spacing={2}>
@@ -98,7 +93,8 @@ function CreateTrial()
                             value={disease}
                             label="Disease"
                             onChange={handleChange}>
-                            {trialCreationStore.diseases.map(disease => <MenuItem value={disease}> {disease.name}</MenuItem>)}
+                            {trialCreationStore.diseases.map(disease =>
+                                <MenuItem value={disease}> {disease.name}</MenuItem>)}
                         </Select>
                     </Stack>
 
@@ -107,7 +103,7 @@ function CreateTrial()
             <Button onClick={handleSubmit}>
                 Submit
             </Button>
-        </div>
 
+        </div>
     </div>
 } export default observer(CreateTrial)

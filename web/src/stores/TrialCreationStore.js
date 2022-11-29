@@ -9,11 +9,16 @@ class TrialCreationStore {
         trialname:"",
         location:"",
         description:"",
-        diseases:[]
+        trialDiseases:[
+        ]
     }
 
     diseases = [];
 
+    submitDisease(id) {
+        console.log("received disease")
+        this.trialdata.trialDiseases.trialDiseaseId.disease = 1
+    }
 
     constructor(){
         makeAutoObservable(this, {}, {autoBind: true});
