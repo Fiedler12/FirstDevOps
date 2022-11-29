@@ -1,13 +1,13 @@
 import * as React from 'react';
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
-import {Button, Fab, FormControl, InputLabel, MenuItem, Select, Stack} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import Typography from "@mui/material/Typography";
-import {useEffect, useState} from "react";
+import {Button, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {useState} from "react";
 import {creationStore} from "../stores/TrialCreationStore";
+import {diseaseStore} from "../stores/DiseaseStore"
+import {observer} from "mobx-react-lite";
 
-export default function CreateTrial()
+function CreateTrial()
 {
 
     const [trialName, setTrialName] = useState("");
@@ -90,7 +90,9 @@ export default function CreateTrial()
                                 value={disease}
                                 label="Disease"
                                 onChange={handleChange}>
-                                <MenuItem value={'Cancer'}>Cancer</MenuItem>
+                                {diseaseStore.diseases.map(disease => (
+                                    <MenuItem value={disease.id}>{disease.name}</MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </Grid>
@@ -103,3 +105,4 @@ export default function CreateTrial()
         </div>
     )
 }
+export default observer(CreateTrial)

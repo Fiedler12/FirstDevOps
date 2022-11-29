@@ -7,15 +7,14 @@ class TrialsStore {
 
     trials = []
 
-    constructor(props) {
+    constructor() {
         makeAutoObservable(this,{},{autoBind:true});
         this.fetchTrials();
     }
 
-    async fetchTrials (){
+    async fetchTrials() {
         const response = await fetch(baseUrl + "api/trials")
         const json = await response.json()
-        console.log(json)
         this.trials = json
     }
 }

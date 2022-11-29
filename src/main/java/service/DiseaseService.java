@@ -20,11 +20,10 @@ public class DiseaseService {
 
     @GET
     public List<Disease> getDiseases() throws NotAuthorizedException {
-        List<Disease> diseases;
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        try{
-            diseases = session.createQuery("from Disease", Disease.class).list();
+        try {
+            List<Disease>diseases = session.createQuery("from Disease", Disease.class).list();
             transaction.commit();
             session.close();
             return diseases;
