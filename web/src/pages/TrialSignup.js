@@ -17,12 +17,12 @@ function TrialSignup() {
         id: 0,
         company: {
             id: 0,
-            email: "0",
-            companyName: "0"
+            email: "Email is loading",
+            companyName: "Company name is loading",
         },
-        trialname: "Loading",
-        location: "Loading",
-        description: "loading"
+        trialname: "Trial name is loading",
+        location: "Location is loading",
+        description: "Description is loading"
     } )
 
     const [state, setState] = useState({
