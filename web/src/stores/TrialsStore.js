@@ -1,7 +1,7 @@
 import {action, makeAutoObservable, runInAction} from "mobx";
 
 const baseUrl = process.env.NODE_ENV === 'development' ?  "http://localhost:8080/":""; //Check if dev environment
-
+const states = {LOADING:"Loading", DONE:"done", FAILED:"FAILED"};
 
 class TrialsStore {
 
