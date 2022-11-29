@@ -5,6 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import model.Company;
 import model.Trial;
+import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -89,6 +90,25 @@ public class TrialsService {
             transaction.rollback();
             session.close();
             throw new NotAuthorizedException("Trial not created");
+        }
+    }
+
+    @POST
+    @Path("/subscribe/{trialID}/{userId}")
+    public int subscribe(@PathParam("trialID") int trialId, @PathParam("userId") int userId) throws NotAuthorizedException {
+        Session session = HibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            User user = session.get(User.class, userId);
+            Trial trial = session.get(Trial.class, trialId);
+            user.setSubscriptions(Arrays.asList(trial));
+            transaction.commit();
+            session.close();
+            return 200;
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new NotAuthorizedException("could not subscribe");
         }
     }
 }

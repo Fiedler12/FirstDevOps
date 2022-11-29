@@ -5,13 +5,14 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import {useParams} from "react-router-dom";
-import {TrialStore} from "../stores/TrialStore";
+import{trialsStore} from "../stores/TrialsStore";
 import {useEffect, useState} from "react";
+
 
 
 function TrialSignup() {
     const id = useParams().id
-    const store = new TrialStore(id);
+    //const store = new TrialStore(id);
     const [currentValues, setCurrentValues] = useState({
         id: 0,
         company: {
@@ -24,12 +25,18 @@ function TrialSignup() {
         description: "loading"
     } )
 
-        useEffect(() => {
-            async function fetchData() {
-                setCurrentValues(await store.fetchTrial(id))
-            }
-            fetchData()
+    useEffect(() => {
+        async function fetchData() {
+            setCurrentValues(await trialsStore.fetchTrial(id))
+        }
+        fetchData().then(r => console.log("done"))
     }, [])
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        trialsStore.postSubscription(id).then(() => {
+            window.location.href = "/#/trials"
+        })
+    }
 
     return(
         <div>
@@ -68,6 +75,7 @@ function TrialSignup() {
                                     sx={{ mt: 2, mb: 2, mr: 6}}
                                     size="large"
                                     color="success"
+                                    onClick={handleSubmit}
                                 >
                                     Sign up for trial
                                 </Button>
