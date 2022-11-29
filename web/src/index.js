@@ -10,8 +10,29 @@ import '@fontsource/roboto/700.css';
 import {HashRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    //name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+
+}
+
+const token = getParameterByName('token');
+if (token!=null && token.length>0){
+    //Store token and redirect to baseURL
+    localStorage.setItem("probeToken",token);
+    window.location.replace("/");
+}
+
 root.render(
-  <React.StrictMode>
+
+
+<React.StrictMode>
       <HashRouter>
          <App />
       </HashRouter>
