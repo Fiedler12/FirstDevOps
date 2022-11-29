@@ -50,6 +50,15 @@ class TokenStore {
         this.token = null
     }
 
+    async campusnetLogin() {
+        const response = await fetch(baseUrl + "api/campusnet/login", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+
     async checkToken() {
         this.token = localStorage.getItem("probeToken");
     }
