@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "USERS")//WATCH out  USER is a reserved name!
+@SecondaryTable(name = "userdiseases")
 @Getter
 @Setter
 @Builder
@@ -28,8 +29,8 @@ public class User {
     private String salt;
     @Column(name = "Privilege")
     private String privilege;
-    @OneToMany(mappedBy = "disease")
-    private List<UserDiseases> userDiseases;
+    @OneToMany(mappedBy = "user")
+    private List<Disease> Diseases;
 
 
     public User(int id, String email, String s) {

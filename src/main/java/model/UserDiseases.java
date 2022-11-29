@@ -16,13 +16,15 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public class UserDiseases {
     @Id
-    @OneToOne
-    @JoinColumn(name = "disease")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
+    private int id;
+
+    @Column(name = "diseaseid")
     private Disease disease;
 
-    @Id
-    @OneToOne
-    @JoinColumn(name = "user")
+    @ManyToOne
+    @JoinColumn(name="userid")
     private User user;
 
 

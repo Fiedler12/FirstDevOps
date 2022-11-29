@@ -20,7 +20,7 @@ public class HibernateController {//Should be a singleton…
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Subscribe.class);
         configuration.addAnnotatedClass(TrialDiseases.class);
-        configuration.addAnnotatedClass(UserDiseases.class);
+        //configuration.addAnnotatedClass(UserDiseases.class);
         configuration.setProperty("hibernate.connection.username", System.getenv("devopse22user"));
         configuration.setProperty("hibernate.connection.password", System.getenv("devopse22pass"));
         //configuration.setProperty("hibernate.default_schema","dev");
