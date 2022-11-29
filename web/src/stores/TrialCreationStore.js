@@ -9,6 +9,7 @@ class TrialCreationStore{
         trialname:"",
         location:"",
         description:"",
+        diseases: [],
     }
 
     contructor(){

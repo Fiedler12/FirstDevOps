@@ -17,6 +17,10 @@ class TrialsStore {
         const json = await response.json()
         this.trials = json
     }
+
+    async fetchSpecificDisease() {
+
+    }
 }
 
 export const trialsStore = new TrialsStore();

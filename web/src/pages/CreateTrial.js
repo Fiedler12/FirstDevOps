@@ -12,19 +12,22 @@ function CreateTrial()
 
     const [trialName, setTrialName] = useState("");
     const [companyName, setCompanyName] = useState("");
-    const [disease, setDisease] = useState('');
+    const [disease, setDisease] = useState({id: -1});
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
-        console.log("Hello")
-
+        let newDisease = {
+            id: disease,
+            name: ""
+        }
+        creationStore.trialdata.diseases.push(newDisease)
         creationStore.postTrial().then(() =>{
             window.location.href= "/#/trials"
         })
     }
 
     const handleChange = (event) => {
-        setDisease(event.target.value);
+        setDisease(event.target.value)
     };
 
 

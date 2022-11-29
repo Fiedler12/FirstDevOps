@@ -91,4 +91,7 @@ public class TrialsService {
             throw new NotAuthorizedException("Trial not created");
         }
     }
+
+    @GET
+    public List<Trial> getSpecificDisease() throws NotAuthorizedException {}
 }

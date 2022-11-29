@@ -37,6 +37,6 @@ public class Trial{
     @JoinTable(name = "trialDiseases",
             joinColumns = {@JoinColumn(name = "trial_id")},
             inverseJoinColumns = {@JoinColumn(name = "disease_id")})
-    List<Disease> diseases = new ArrayList<>();
+    List<Disease> diseases;
 
 }
