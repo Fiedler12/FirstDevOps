@@ -6,7 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriBuilder;
-import kong.unirest.Unirest;
+//import kong.unirest.Unirest;
 import model.User;
 
 
@@ -18,27 +18,27 @@ public class CampusnetLogin {
         String URI =  "https://auth.dtu.dk/dtu/?service=" + Config.CN_REDIRECT_URL;
         return Response.seeOther(UriBuilder.fromUri(URI).build()).build();
     }
-    @GET
-    @Path("redirect")
-    public Response callback(@QueryParam("ticket") String cnTicket) throws NotAuthorizedException {
-        System.out.println(cnTicket);
-        // Tjekker ticket op mod campusnet
-        String body = Unirest.get( "https://auth.dtu.dk/dtu/validate?service="
-                        + Config.CN_REDIRECT_URL
-                        + "&ticket="
-                        + cnTicket)
-                .asString()
-                .getBody();
-
-        if (body.contains("yes")) {
-            int id = Integer.parseInt(body.replaceAll("[^0-9]+", ""));
-            System.out.println(id);
-            String tokenString = JWTHandler.generateJwtToken(new User(id));
-            return Response.seeOther(UriBuilder.fromUri(Config.FRONTEND_URL + "?token=" + tokenString).build()).build();
-            //return tokenString;
-        }
-        throw new NotAuthorizedException("You are not authorized");
-    }
+//    @GET
+//    @Path("redirect")
+//    public Response callback(@QueryParam("ticket") String cnTicket) throws NotAuthorizedException {
+//        System.out.println(cnTicket);
+//        // Tjekker ticket op mod campusnet
+//        String body = Unirest.get( "https://auth.dtu.dk/dtu/validate?service="
+//                        + Config.CN_REDIRECT_URL
+//                        + "&ticket="
+//                        + cnTicket)
+//                .asString()
+//                .getBody();
+//
+//        if (body.contains("yes")) {
+//            int id = Integer.parseInt(body.replaceAll("[^0-9]+", ""));
+//            System.out.println(id);
+//            String tokenString = JWTHandler.generateJwtToken(new User(id));
+//            return Response.seeOther(UriBuilder.fromUri(Config.FRONTEND_URL + "?token=" + tokenString).build()).build();
+//            //return tokenString;
+//        }
+//        throw new NotAuthorizedException("You are not authorized");
+//    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
