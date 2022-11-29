@@ -11,7 +11,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserDisease {
-
     @EmbeddedId
     private UserDiseaseId userDiseaseId;
 }
