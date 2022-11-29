@@ -50,7 +50,6 @@ public class CompanyService {
         try {
             // get the trial from the database with hibernate
             Company company = session.get(Company.class, id);
-            System.out.println(company);
             transaction.commit();
             session.close();
             return company;

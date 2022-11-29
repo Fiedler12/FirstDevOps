@@ -62,7 +62,6 @@ public class UsersService {
         Transaction transaction = session.beginTransaction();
         try{
             User userDB = session.get(User.class, id);
-            System.out.println(userDB);
             // check if the user is the same as the one in the token
             if (auth.getId() == userDB.getId()){
                 userDB.setName(user.getName());
@@ -100,7 +99,6 @@ public class UsersService {
             userDB = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", user.getEmail())
                     .uniqueResult();
-            System.out.println(userDB);
         }catch (Exception e) {
             transaction.commit();
             session.close();
@@ -113,12 +111,9 @@ public class UsersService {
         } else {
             String salt = BCrypt.gensalt();
             String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
-            System.out.println(user);
             user.setSalt(salt);
             user.setPassword(hashedPassword);
-            System.out.println(user);
             session.persist(user);
-            System.out.println(user);
             transaction.commit();
             session.close();
             return user;

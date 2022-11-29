@@ -29,11 +29,9 @@ public class LoginService {
             user = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", login.getEmail())
                     .uniqueResult();
-            System.out.println(user);
             logindata = new LoginData();
             logindata.setEmail(user.getEmail());
             logindata.setPassword(user.getPassword());
-            System.out.println(logindata);
         }catch (Exception e) {
             transaction.rollback();
             session.close();

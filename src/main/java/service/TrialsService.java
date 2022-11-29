@@ -101,10 +101,16 @@ public class TrialsService {
         try {
             User user = session.get(User.class, userId);
             Trial trial = session.get(Trial.class, trialId);
-            user.setSubscriptions(Arrays.asList(trial));
-            transaction.commit();
-            session.close();
-            return 200;
+            if (!user.getSubscriptions().contains(trial)) {
+                user.addSubscription(trial);
+                transaction.commit();
+                session.close();
+                return 200;
+            } else {
+                transaction.rollback();
+                session.close();
+                throw new NotAuthorizedException("User already subscribed");
+            }
         } catch (Exception e) {
             transaction.rollback();
             session.close();
