@@ -92,6 +92,20 @@ public class TrialsService {
             throw new NotAuthorizedException("Trial not created");
         }
     }
+    @DELETE
+    public void deleteTrial(Trial trial) throws NotAuthorizedException {
+        Session session = HibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.remove(trial);
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new NotAuthorizedException("Trial not deleted");
+        }
+    }
 
     @POST
     @Path("/subscribe/{trialID}/{userId}")
