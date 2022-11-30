@@ -1,8 +1,11 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS trials;
 DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS disease;
+DROP TABLE IF EXISTS diseases;
 DROP TABLE IF EXISTS trialdiseases;
 DROP TABLE IF EXISTS userdiseases;
+DROP Table IF EXISTS subscriptions;
 
 
 CREATE TABLE users(
