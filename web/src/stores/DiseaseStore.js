@@ -12,12 +12,9 @@ class DiseaseStore {
     }
 
     async fetchDiseases() {
-        console.log("Starting fetch")
         const response = await fetch(baseUrl + "api/disease")
         const json = await response.json()
         this.diseases = json
-        console.log("Ending fetch")
-        console.log(this.diseases)
     }
 }
 

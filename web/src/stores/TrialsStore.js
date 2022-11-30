@@ -24,6 +24,12 @@ class TrialsStore {
         return json
     }
 
+    async fetchSpecific(disease) {
+        const response = await fetch(baseUrl + "api/trials/disease/" + disease)
+        const json = await response.json()
+        this.trials = json
+    }
+
     async postSubscription(id) {
         const token = tokenstore.token;
         this.state = states.LOADING;
@@ -43,7 +49,53 @@ class TrialsStore {
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not subscribe")
+            throw new Error("could not subscribe")
+        }
+    }
+
+    async deleteSubscription(id) {
+        const token = tokenstore.token;
+        this.state = states.LOADING;
+        try {
+            const user = JSON.parse(atob(token.split('.')[1])).user
+            const userid = JSON.parse(user).id
+            const response = await fetch(baseUrl + "api/trials/unsubscribe/" + id + "/" + userid, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
+                }
+            })
+            const json = await response.json()
+                .then(this.state = states.DONE)
+                .catch(this.state = states.FAILED);
+            return json
+        } catch (e) {
+            this.state = states.FAILED;
+            throw new Error("could not unsubscribe")
+        }
+    }
+
+    async getSubscribed (id) {
+        const token = tokenstore.token;
+        this.state = states.LOADING;
+        try {
+            const user = JSON.parse(atob(token.split('.')[1])).user
+            const userid = JSON.parse(user).id
+            const response = await fetch(baseUrl + "api/trials/isSubscribed/" + id + "/" + userid, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
+                }
+            })
+            const json = await response.json()
+                .then(this.state = states.DONE)
+                .catch(this.state = states.FAILED);
+            return json
+        } catch (e) {
+            this.state = states.FAILED;
+            throw new Error("could not get subscription status")
         }
     }
 }

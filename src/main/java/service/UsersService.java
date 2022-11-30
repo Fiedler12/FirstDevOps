@@ -57,14 +57,11 @@ public class UsersService {
     @PUT
     @Path("/{id}")
     public User putUser(@PathParam("id") int id, User user, @HeaderParam("Authorization") String authHeader) throws NotAuthorizedException {
-        User auth = JWTHandler.validate(authHeader);
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try{
             User userDB = session.get(User.class, id);
-            System.out.println(userDB);
             // check if the user is the same as the one in the token
-            if (auth.getId() == userDB.getId()){
                 userDB.setName(user.getName());
                 userDB.setEmail(user.getEmail());
                 String salt = BCrypt.gensalt();
@@ -75,11 +72,6 @@ public class UsersService {
                 transaction.commit();
                 session.close();
                 return userDB; // maybe remove this later
-            } else {
-                transaction.commit();
-                session.close();
-                throw new NotAuthorizedException("User not authorized");
-            }
         } catch (Exception e) {
             transaction.rollback();
             session.close();
@@ -89,7 +81,7 @@ public class UsersService {
 
     }
 
-    //Does Not wotk yet
+
     @POST
     @Path("/register")
     public User postUser(User user) throws NotAuthorizedException {
@@ -100,7 +92,6 @@ public class UsersService {
             userDB = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", user.getEmail())
                     .uniqueResult();
-            System.out.println(userDB);
         }catch (Exception e) {
             transaction.commit();
             session.close();
@@ -113,16 +104,30 @@ public class UsersService {
         } else {
             String salt = BCrypt.gensalt();
             String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
-            System.out.println(user);
             user.setSalt(salt);
             user.setPassword(hashedPassword);
-            System.out.println(user);
             session.persist(user);
-            System.out.println(user);
             transaction.commit();
             session.close();
             return user;
         }
     }
+
+    @DELETE
+    @Path("/{id}")
+    public void deleteUser(@PathParam("id") int id) throws NotAuthorizedException {
+        Session session = hibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.remove(session.get(User.class, id));
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new NotAuthorizedException("User not found");
+        }
+    }
+
 
 }

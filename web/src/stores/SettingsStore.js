@@ -14,7 +14,6 @@ export class SettingsStore {
     }
 
     async fetchSettings (){
-        console.log("entering fetch")
         const token = tokenstore.token;
         this.state = states.LOADING;
         try {
@@ -29,20 +28,17 @@ export class SettingsStore {
             const json = await response.json()
                 .then(this.state = states.DONE)
                 .catch(this.state = states.FAILED);
-            console.log(json)
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not fetch settings")
+            throw new Error("could not fetch settings")
         }
     }
     // put http request to update settings
     async updateSettings (settings){
-        console.log("entering update")
         const token = tokenstore.token;
         this.state = states.LOADING;
         settings = JSON.stringify(settings)
-        console.log(settings)
         try {
             const user = JSON.parse(atob(token.split('.')[1])).user
             const userid = JSON.parse(user).id
@@ -58,11 +54,10 @@ export class SettingsStore {
             const json = await response.json()
                 .then(this.state = states.DONE)
                 .catch(this.state = states.FAILED);
-            console.log(json)
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not update settings")
+            throw new Error("could not update settings")
         }
     }
 }

@@ -45,9 +45,19 @@ public class User {
         inverseJoinColumns = {@JoinColumn(name = "trial_id")})
     List<Trial> subscriptions = new ArrayList<>();
 
+    public void addSubscription(Trial trial) {
+        subscriptions.add(trial);
+    }
+    public void removeSubscription(Trial trial) {
+        subscriptions.remove(trial);
+    }
     public User(int id, String email, String s) {
         this.id = id;
         this.email = email;
         this.password = s;
+    }
+
+    public User(int id) {
+        this.id = id;
     }
 }

@@ -18,22 +18,14 @@ public class CompanyService {
     controller.HibernateController hibernateController = controller.HibernateController.getInstance();
     @GET
     public List<Company> getCompanies(@HeaderParam("Authorization") String authHeader) throws NotAuthorizedException {
-        User auth = JWTHandler.validate(authHeader);
         Session session = hibernateController.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         try {
             // get the trial from the database with hibernate
             List<Company> company = session.createQuery("from Company", Company.class).list();
-            User user = session.get(User.class, auth.getId());
-            if ( auth.getId() == user.getId()) { //TODO: change to user.getPrivilege() == 1 when available
-                transaction.commit();
-                session.close();
-                return company;
-            } else {
-                transaction.rollback();
-                session.close();
-                throw new NotAuthorizedException("You are not authorized to view companies");
-            }
+            transaction.commit();
+            session.close();
+            return company;
         } catch (Exception e) {
             transaction.rollback();
             session.close();
@@ -50,7 +42,6 @@ public class CompanyService {
         try {
             // get the trial from the database with hibernate
             Company company = session.get(Company.class, id);
-            System.out.println(company);
             transaction.commit();
             session.close();
             return company;

@@ -26,7 +26,6 @@ class TrialCreationStore{
             }
         })
         const json = await response.json()
-        console.log(json)
         return json
     }
 

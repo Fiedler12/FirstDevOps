@@ -32,22 +32,28 @@ class TokenStore {
                 this.token = token;
                 localStorage.setItem("probeToken", token);
                 this.state = Loginstates.LOGGED_IN;
-                console.log("Got Token: " + this.token + " and state: " + this.state)
             } else {
                 this.state = Loginstates.LOGGEDOUT;
-                console.log("Got Token: " + this.token + " and state: " + this.state)
-
             }
             return this.state
         }
         catch (e) {
             this.state = Loginstates.LOGGEDOUT;
-            console.log("Login failed")
+            throw new Error("could not login")
         }
     }
     async logOut() {
         localStorage.removeItem("probeToken");
         this.token = null
+    }
+
+    async campusnetLogin() {
+        const response = await fetch(baseUrl + "api/campusnet/login", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
     }
 
     async checkToken() {
