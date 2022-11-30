@@ -20,7 +20,7 @@ function Trials() {
             trialsStore.fetchTrials()
         }
         else {
-            trialsStore.fetchSpecificDisease()
+            trialsStore.fetchSpecific(disease)
         }
     }
 
