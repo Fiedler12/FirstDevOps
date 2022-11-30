@@ -27,7 +27,6 @@ public class TrialsService {
         Transaction transaction = session.beginTransaction();
         try {
             List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
-            System.out.println(trials);
             transaction.commit();
             session.close();
             return trials;
@@ -69,7 +68,6 @@ public class TrialsService {
         try {
             // get the trial from the database with hibernate
             Trial trial = session.get(Trial.class, id);
-            System.out.println(trial);
             transaction.commit();
             session.close();
             return trial;

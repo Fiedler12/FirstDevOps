@@ -49,7 +49,7 @@ class TrialsStore {
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not subscribe")
+            throw new Error("could not subscribe")
         }
     }
 
@@ -72,7 +72,7 @@ class TrialsStore {
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not unsubscribe")
+            throw new Error("could not unsubscribe")
         }
     }
 
@@ -95,7 +95,7 @@ class TrialsStore {
             return json
         } catch (e) {
             this.state = states.FAILED;
-            console.log("could not get subscribed")
+            throw new Error("could not get subscription status")
         }
     }
 }
