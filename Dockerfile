@@ -2,14 +2,15 @@ FROM maven:3.8.6-openjdk-18 as MAVEN
 WORKDIR /tmp
 COPY /src/ ./src
 COPY /pom.xml ./
-RUN mvn package
+RUN mvn package -Dmaven.test.skip
 
 FROM node:18-slim AS REACT
 WORKDIR /tmp
-RUN yarn install
+
 COPY /web/package.json  ./
 COPY /web/src ./src
 COPY /web/public ./public
+RUN yarn install
 RUN yarn build
 
 FROM openjdk:18-alpine
