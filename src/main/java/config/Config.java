@@ -11,5 +11,5 @@ public class Config {
     public static final String DEFAULT_FRONTEND_URL = "http://localhost:3000/";
 
     public static final String FRONTEND_URL = System.getenv("FRONTEND_URL") != null ? System.getenv("FRONTEND_URL") : DEFAULT_FRONTEND_URL;
-    public static final String CN_REDIRECT_URL = System.getenv("CAMPUSNET_REDIRECT_URL") != null ? System.getenv("CAMPUSNET_REDIRECT_URL") : DEFAULT_CAMPUSNET_REDIRECT_URL;
+    public static final String CN_REDIRECT_URL = System.getenv("CAMPUSNET_REDIRECT_URL") != null ? System.getenv("CAMPUSNET_REDIRECT_URL") + CAMPUSNET_REDIRECT_PATH : DEFAULT_CAMPUSNET_REDIRECT_URL;
 }
