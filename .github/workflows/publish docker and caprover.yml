@@ -49,4 +49,4 @@ jobs:
           host: 'https://captain.probe.diplomportal.dk/'
           password: '${{ secrets.CAPROVER_PASSWORD }}'
           app: 'devopstest'
-          image: 'fiedler12/probewebsite:latest'
+          image: 'fiedler12/probewebsite:main'
