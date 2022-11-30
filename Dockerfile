@@ -6,11 +6,12 @@ RUN mvn package -Dmaven.test.skip
 
 FROM node:18-slim AS REACT
 WORKDIR /tmp
-RUN yarn install
+
 COPY /web/package.json  ./
 COPY /web/src ./src
 COPY /web/public ./public
-RUN yarn run build
+RUN yarn install
+RUN yarn build
 
 FROM openjdk:18-alpine
 WORKDIR /tmp
