@@ -31,7 +31,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: emilnt1/probewebsite
+          images: fiedler12/probewebsite
           
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
@@ -47,4 +47,4 @@ jobs:
           host: 'https://captain.probe.diplomportal.dk/'
           password: '${{ secrets.CAPROVER_PASSWORD }}'
           app: 'devopstest'
-          image: 'emilnt1/probewebsite:latest'
+          image: 'fiedler12/probewebsite:latest'
