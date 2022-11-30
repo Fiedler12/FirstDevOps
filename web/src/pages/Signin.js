@@ -15,6 +15,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {tokenstore} from "../stores/TokenStore";
 import {useEffect, useState} from "react";
 import login from "./Login";
+import {lightBlue} from "@mui/material/colors";
+import {config} from "../config/config";
 
 // Taken from: https://github.com/mui/material-ui/tree/v5.10.6/docs/data/material/getting-started/templates/sign-in
 
@@ -36,8 +38,6 @@ const theme = createTheme();
 
 
 export default function Signin() {
-    const [state, setState] = useState('')
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -45,7 +45,6 @@ export default function Signin() {
         tokenstore.doLogin().then(() =>{
             if (tokenstore.state === "LoggedIn") {
                 window.location.href = "/#/homepage";
-
             }
         })
 
@@ -70,7 +69,16 @@ export default function Signin() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
+                    <Button
+                        fullWidth
+                        variant={"contained"}
+                        sx={{mt: 3, mb: 2}}
+                        color="secondary"
+                        href={config.backendUrl + "api/campusnet/login"} >
+                        Sign in with CampusNet
+                    </Button>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+
                         <TextField
                             margin="normal"
                             required
@@ -122,6 +130,8 @@ export default function Signin() {
                                 </Link>
                             </Grid>
                         </Grid>
+
+
                     </Box>
                 </Box>
                 <Copyright sx={{mt: 8, mb: 4}}/>

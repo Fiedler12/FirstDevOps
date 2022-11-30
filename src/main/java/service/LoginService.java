@@ -10,6 +10,7 @@ import model.LoginData;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 @Path("login")
@@ -28,25 +29,21 @@ public class LoginService {
             user = session.createQuery("from User where email = :email", User.class)
                     .setParameter("email", login.getEmail())
                     .uniqueResult();
-            System.out.println(user);
             logindata = new LoginData();
             logindata.setEmail(user.getEmail());
             logindata.setPassword(user.getPassword());
-            System.out.println(logindata);
         }catch (Exception e) {
-            transaction.commit();
+            transaction.rollback();
             session.close();
             throw new NotAuthorizedException("User not found");
         }
 
-
-
-        if (login!=null && login.equals(logindata) ){
+        if (login!=null && login.getEmail().equals(logindata.getEmail()) && BCrypt.checkpw(login.getPassword(), logindata.getPassword())) {
             transaction.commit();
             session.close();
             return JWTHandler.generateJwtToken(new User(user.getId(), login.getEmail(), ""));
         }
-        transaction.commit();
+        transaction.rollback();
         session.close();
         throw new NotAuthorizedException("forkert brugernavn/kodeord");
     }

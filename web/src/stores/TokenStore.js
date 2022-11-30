@@ -8,11 +8,11 @@ const Loginstates = {LOGGING_IN:"Loading", LOGGEDOUT:"Logout", LOGGED_IN:"Logged
 class TokenStore {
     state = Loginstates.LOGGEDOUT;
     token = null
-    logindata = {email:"", password:""}
+    logindata =     {email:"", password:""}
 
     constructor() {
+        makeAutoObservable(this)
         this.token = localStorage.getItem("probeToken");
-
     }
 
     async doLogin() {
@@ -47,8 +47,21 @@ class TokenStore {
     }
     async logOut() {
         localStorage.removeItem("probeToken");
+        this.token = null
     }
 
+    async campusnetLogin() {
+        const response = await fetch(baseUrl + "api/campusnet/login", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+
+    async checkToken() {
+        this.token = localStorage.getItem("probeToken");
+    }
 
 }
 

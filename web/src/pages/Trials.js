@@ -3,36 +3,25 @@ import AddIcon from '@mui/icons-material/Add';
 import{trialsStore} from "../stores/TrialsStore";
 import {useEffect, useState} from "react";
 import {Box, Divider, FormControl, InputLabel, Select, MenuItem} from '@mui/material';
-
+import {observer} from "mobx-react-lite";
+import {diseaseStore} from "../stores/DiseaseStore";
 
 
 function Trials() {
-    const [trials, setTrials] = useState([])
-    const [disease, setDisease] = useState('');
+    const [disease, setDisease] = useState('Any');
     const [search, setSearch] = useState("");
 
     const handleChange = (event) => {
         setDisease(event.target.value);
     };
 
-
-    useEffect(() => {
-        async function getTrials() {
-            setTrials(await trialsStore.fetchTrials())
-        }
-        getTrials()
-    }, [])
-
     function onButtonClick() {
-        let filtered = [];
-        trials.map(trial => {
-            if (trial.trialname.toLowerCase().includes(search.toLowerCase())) {
-                filtered.push(trial)
-                }
-            }
-        )
-        setTrials(filtered)
-        console.log(trials)
+        if(disease === 'Any' || disease === -1) {
+            trialsStore.fetchTrials()
+        }
+        else {
+            trialsStore.fetchSpecific(disease)
+        }
     }
 
 
@@ -85,9 +74,11 @@ function Trials() {
                                     value={disease}
                                     label="Disease"
                                     onChange={handleChange}>
-                                    <MenuItem value={'Cancer'}>Cancer</MenuItem>
-                                    <MenuItem value={'Diabetes'}>Diabetes</MenuItem>
-                                    <MenuItem value={'Being Beta'}>Being beta</MenuItem>
+                                    <MenuItem value={-1}>Any</MenuItem>
+                                    {diseaseStore.diseases.map( disease => (
+                                        <MenuItem value={disease.id}>{disease.name}</MenuItem>
+                                        ))}
+
                                 </Select>
                             </FormControl>
                         </Box>
@@ -100,7 +91,7 @@ function Trials() {
                 </Grid>
                 <Grid item xs={8}>
                     <Grid container spacing={4}>
-                        {trials.map(trial => (
+                        {trialsStore.trials.map(trial => (
                         <Grid item xs={12} sm={6} md={4} lg={4} key={trial.id}>
                             <Card>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -129,4 +120,4 @@ function Trials() {
 
 }
 
-export default Trials;
+export default observer(Trials);

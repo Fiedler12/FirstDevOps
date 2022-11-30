@@ -1,21 +1,22 @@
 import './App.css';
-import {Routes, Route, Navigate} from "react-router-dom";
+import {Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import Settings from './pages/Settings';
 import Trials from './pages/Trials';
 import About from './pages/About';
 import Homepage from './pages/Homepage';
 import Landingpage from './pages/Landingpage';
 import logo from './Logo/cropped-Final-Logo-2.png';
-
 import {AppBar, Button, Toolbar} from "@mui/material";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import CreateTrial from "./pages/CreateTrial";
 import TrialSignup from "./pages/TrialSignup";
 import { tokenstore } from "./stores/TokenStore"
+import {observer} from "mobx-react-lite";
 
 
 function App() {
+
   return (
     <div>
         <Navbar/>
@@ -35,7 +36,8 @@ function App() {
 }
 
 
- const Navbar = () => {
+ const Navbar = observer(() => {
+
     return (
     <AppBar position="static">
         <Toolbar>
@@ -46,19 +48,22 @@ function App() {
                 />
             </Button>
             <Button color="inherit" size={"large"} href={"#/about"}>About</Button>
-            {!tokenstore.token ?
-                <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button> :
+            {tokenstore.token ?
                 <div>
-                    <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
-                    <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
-                    <Button color="inherit" size={"large"} href={tokenstore.logOut()}>Log out</Button>
-                </div>
+                <Button color="inherit" size={"large"} href={"#/settings"}>Settings</Button>
+                <Button color="inherit" size={"large"} href={"#/trials"}>Trials</Button>
+                <Button color="inherit" size={"large"} onClick={() => logOut()} href={"/"}>Log out</Button>
+                </div> :
+                <Button color="inherit" size={"large"} href={"#/signin"}>Login</Button>
             }
             <div></div>
         </Toolbar>
     </AppBar>
     )
+})
+
+function logOut() {
+    tokenstore.logOut()
 }
 
-
-export default App;
+export default observer(App);

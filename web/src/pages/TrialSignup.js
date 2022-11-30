@@ -5,31 +5,48 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import {useParams} from "react-router-dom";
-import {TrialStore} from "../stores/TrialStore";
+import{trialsStore} from "../stores/TrialsStore";
 import {useEffect, useState} from "react";
+
 
 
 function TrialSignup() {
     const id = useParams().id
-    const store = new TrialStore(id);
+    //const store = new TrialStore(id);
     const [currentValues, setCurrentValues] = useState({
         id: 0,
         company: {
             id: 0,
-            email: "0",
-            companyName: "0"
+            email: "Email is loading",
+            companyName: "Company name is loading",
         },
-        trialname: "Loading",
-        location: "Loading",
-        description: "loading"
+        trialname: "Trial name is loading",
+        location: "Location is loading",
+        description: "Description is loading"
     } )
 
-        useEffect(() => {
-            async function fetchData() {
-                setCurrentValues(await store.fetchTrial(id))
-            }
-            fetchData()
+    const [state, setState] = useState({
+        subscribed: false,
+    })
+    useEffect(() => {
+        async function fetchData() {
+            setCurrentValues(await trialsStore.fetchTrial(id))
+            setState({subscribed: await trialsStore.getSubscribed(id)})
+        }
+        fetchData().then(r => console.log("done"))
     }, [])
+    const handleSubscribe = (event) => {
+        event.preventDefault();
+        trialsStore.postSubscription(id).then(() => {
+            window.location.href = "/#/trials"
+        })
+    }
+    const handleUnsubscribe = (event) => {
+        event.preventDefault();
+        trialsStore.deleteSubscription(id).then(() => {
+            window.location.href = "/#/trials"
+        })
+    }
 
     return(
         <div>
@@ -67,7 +84,19 @@ function TrialSignup() {
                                     variant="contained"
                                     sx={{ mt: 2, mb: 2, mr: 6}}
                                     size="large"
+                                    color="error"
+                                    disabled={!state.subscribed}
+                                    onClick={handleUnsubscribe}
+                                >Remove sign up
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    sx={{ mt: 2, mb: 2, mr: 6}}
+                                    size="large"
                                     color="success"
+                                    disabled={state.subscribed}
+                                    focusRipple={false}
+                                    onClick={handleSubscribe}
                                 >
                                     Sign up for trial
                                 </Button>
