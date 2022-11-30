@@ -10,7 +10,7 @@ RUN yarn install
 COPY /web/package.json  ./
 COPY /web/src ./src
 COPY /web/public ./public
-RUN yarn build
+RUN yarn run build
 
 FROM openjdk:18-alpine
 WORKDIR /tmp
