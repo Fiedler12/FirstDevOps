@@ -95,5 +95,29 @@ class TrialsServiceTest {
         assertFalse(trialsService.isSubscribed(1502, 202));
     }
 
+    // test the getDiseaseSpecific method
+    @org.junit.jupiter.api.Test
+    void getDiseaseSpecific() throws NotAuthorizedException {
+        // create a new instance of the service
+        TrialsService trialsService = new TrialsService();
+        // call the getDiseaseSpecific method
+        List<Trial> trials = trialsService.getDiseaseSpecific(1);
+        // check that the list is not null
+        assertNotNull(trials);
+        // check that the list is not empty
+        assertFalse(trials.isEmpty());
+        // check that the first trial in the list has a name that is not null
+        assertNotNull(trials.get(0).getTrialname());
+        // check that the first trial in the list has a description that is not null
+        assertNotNull(trials.get(0).getDescription());
+        // check that the first trial in the list has a location that is not null
+        assertNotNull(trials.get(0).getLocation());
+        // check that the first trial in the list has a id that is not null
+        assertNotNull(trials.get(0).getId());
+        // check that the first trial in the list has a company that is not null
+        assertNotNull(trials.get(0).getCompany());
+    }
+
+
 
 }
