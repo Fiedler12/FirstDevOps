@@ -4,12 +4,15 @@ import controller.HibernateController;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import model.Company;
+import model.Disease;
 import model.Trial;
 import model.User;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -129,6 +132,32 @@ public class TrialsService {
             transaction.rollback();
             session.close();
             throw new NotAuthorizedException("could not subscribe");
+        }
+    }
+
+    @GET
+    @Path("/disease/{id}")
+    public List<Trial> getDiseaseSpecific(@PathParam("id") int id) throws NotAuthorizedException {
+        Session session = HibernateController.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            List<Trial> trials = session.createQuery("from Trial", Trial.class).list();
+            List<Trial> result = new ArrayList<>();
+            for (Trial trial: trials
+                 ) {
+                for(Disease disease: trial.getDiseases()) {
+                    if (disease.getId() == id)  {
+                        result.add(trial);
+                    }
+                }
+            }
+            transaction.commit();
+            session.close();
+            return result;
+        } catch (Exception e) {
+            transaction.rollback();
+            session.close();
+            throw new NotAuthorizedException("Could not get.");
         }
     }
 

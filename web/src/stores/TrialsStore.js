@@ -24,6 +24,12 @@ class TrialsStore {
         return json
     }
 
+    async fetchSpecific(disease) {
+        const response = await fetch(baseUrl + "api/trials/disease/" + disease)
+        const json = await response.json()
+        this.trials = json
+    }
+
     async postSubscription(id) {
         const token = tokenstore.token;
         this.state = states.LOADING;
