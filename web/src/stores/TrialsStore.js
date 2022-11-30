@@ -14,6 +14,7 @@ class TrialsStore {
     }
 
     async fetchTrials() {
+        trials.empty()
         const response = await fetch(baseUrl + "api/trials")
         const json = await response.json()
         this.trials = json
@@ -25,6 +26,7 @@ class TrialsStore {
     }
 
     async fetchSpecific(disease) {
+        trials.empty()
         const response = await fetch(baseUrl + "api/trials/disease/" + disease)
         const json = await response.json()
         this.trials = json
