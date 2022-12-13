@@ -12,6 +12,7 @@ function About() {
             style={{ minHeight: '40vh' }}>
             <Typography variant={"h2"}>
                 This is the about page, nothing interesting to see here.
+                Some more text
             </Typography>
         </Grid>
     )
